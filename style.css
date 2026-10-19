@@ -173,12 +173,6 @@ h1 .w:nth-child(2) .c{color:var(--act);text-shadow:0 0 30px rgba(var(--ac-rgb),.
 .pimg.missing::after{content:"Add assets/images/mckenzie-profile.jpeg";position:absolute;top:0;left:0;right:0;bottom:0;display:grid;place-items:center;font-family:var(--mo);font-size:.7rem;color:var(--mu);text-align:center;padding:20px;word-break:break-all}
 .ring{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:50%;border:1px dashed var(--line);animation:spin 70s linear infinite}
 .ring.r2{top:6%;left:6%;right:6%;bottom:6%;border:1px solid transparent;border-top-color:rgba(var(--ac-rgb),.6);border-bottom-color:rgba(var(--vi),.3);animation-duration:34s;animation-direction:reverse}
-.orbit{position:absolute;top:0;left:0;right:0;bottom:0;animation:spin 40s linear infinite;z-index:4;pointer-events:none}
-.orbit span{position:absolute;font-family:var(--mo);font-size:.64rem;letter-spacing:.08em;padding:5px 10px;border-radius:999px;background:var(--bg2);border:1px solid var(--line2);color:var(--tx2);animation:spin 40s linear infinite reverse;translate:-50% -50%;white-space:nowrap}
-.orbit span:nth-child(1){top:0;left:50%}
-.orbit span:nth-child(2){top:50%;left:100%}
-.orbit span:nth-child(3){top:100%;left:50%}
-.orbit span:nth-child(4){top:50%;left:0}
 .corner{position:absolute;width:24px;height:24px;border:2px solid rgba(var(--ac-rgb),.55);z-index:3}
 .corner.tl{top:0;left:0;border-right:0;border-bottom:0}
 .corner.tr{top:0;right:0;border-left:0;border-bottom:0}
@@ -270,22 +264,10 @@ html[data-theme=light] .tag.fb{color:#1558c0}
 .ph{position:relative;aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:linear-gradient(110deg,var(--bg2) 30%,rgba(var(--ac-rgb),.08) 50%,var(--bg2) 70%);background-size:200% 100%;animation:shimmer 1.6s linear infinite;display:block;width:100%}
 @keyframes shimmer{to{background-position:-200% 0}}
 .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s;position:relative;z-index:1}
-.card:hover .ph img,.vcard:hover .ph img{transform:scale(1.06)}
+.card:hover .ph img{transform:scale(1.06)}
 .ph.missing{animation:none;background:linear-gradient(135deg,var(--bg2),var(--bg))}
 .ph.missing::after{content:attr(data-label);position:absolute;top:0;left:0;right:0;bottom:0;display:grid;place-items:center;font-family:var(--mo);font-size:.7rem;color:var(--mu);text-align:center;padding:12px;word-break:break-all;background:repeating-linear-gradient(45deg,transparent 0 12px,rgba(var(--ac-rgb),.05) 12px 24px)}
 .empty{margin-top:20px;text-align:center}
-
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:18px;margin-top:18px}
-.vcard{border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);transition:border-color .3s,transform .3s,box-shadow .3s;min-width:0;animation:rise .6s backwards}
-.vcard:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:0 26px 50px -30px rgba(var(--ac-rgb),.5)}
-.v-img{position:relative;display:block;width:100%;padding:0;text-align:left}
-.v-img .ph{border-radius:0;aspect-ratio:16/9}
-.v-chip{position:absolute;left:10px;bottom:10px;z-index:2;font-family:var(--mo);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--bg) 78%,transparent);border:1px solid var(--line2);color:var(--tx)}
-.v-img.solo{aspect-ratio:16/9;display:grid;place-items:center;color:var(--act);background:radial-gradient(circle at 50% 40%,rgba(var(--ac-rgb),.16),transparent 70%)}
-.v-img.solo svg{width:38px;height:38px}
-.v-body{padding:14px;display:grid;gap:12px}
-.v-body h3{font-family:var(--hd);font-size:.82rem;letter-spacing:.03em;overflow-wrap:anywhere}
-.v-links{display:flex;flex-wrap:wrap;gap:8px}
 
 .feature{display:flex;gap:24px;padding:22px;align-items:center;border-radius:var(--r)}
 .f-body{flex:1;display:grid;gap:12px;justify-items:start;min-width:0}
