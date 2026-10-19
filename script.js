@@ -258,7 +258,7 @@ function watchItems() {
 }
 const linkCount = () => watchItems().reduce((n, i) => n + KEYS.filter(k => i[k]).length, 0);
 
-/* ---------- NEW: save contact as .vcf ---------- */
+/* ---------- save contact as .vcf ---------- */
 function saveContact() {
   const e = emailOk();
   const lines = [
@@ -280,7 +280,7 @@ function saveContact() {
   toast("Contact card downloaded");
 }
 
-/* ---------- NEW: live Lae clock ---------- */
+/* ---------- live Lae clock ---------- */
 function initClock() {
   const el = $("#clock");
   if (!el) return;
@@ -291,7 +291,7 @@ function initClock() {
   setInterval(tick, 15000);
 }
 
-/* ---------- NEW: click ripple ---------- */
+/* ---------- click ripple ---------- */
 function initRipple() {
   if (reduce) return;
   document.addEventListener("pointerdown", e => {
@@ -306,7 +306,7 @@ function initRipple() {
   });
 }
 
-/* ---------- NEW: heading decode effect ---------- */
+/* ---------- heading decode effect ---------- */
 function initScramble() {
   if (reduce) return;
   const chars = "01<>/#$%&*+=";
@@ -440,7 +440,7 @@ function initNav() {
   addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, {passive:true});
   onScroll();
   top.addEventListener("click", () => scrollTo({top:0, behavior: reduce ? "auto" : "smooth"}));
-  const ids = ["top","about","skills","projects","watch","media","education","contact"];
+  const ids = ["top","about","skills","projects","media","education","contact"];
   $("#dots").innerHTML = ids.map(i => `<a href="#${i}" aria-label="${i}" data-d="${i}"></a>`).join("");
   const links = $$("#menu > a"), dots = $$("#dots a");
   const io = new IntersectionObserver(es => {
@@ -626,33 +626,6 @@ function initSkills() {
   $("#track").innerHTML = words + words;
 }
 
-function initWatch() {
-  const items = watchItems(), box = $("#watchGrid"), fl = $("#watchFilters");
-  const present = KEYS.filter(k => items.some(i => i[k]));
-  let cur = "all";
-  const vcard = (i, n) => {
-    const btns = KEYS.filter(k => i[k]).map(k => `<a class="btn sm ${CLS[k]}" href="${esc(i[k])}" target="_blank" rel="noopener noreferrer">${icon(PLATFORMS[k].i)}${PLATFORMS[k].n}</a>`).join("");
-    const img = i.id
-      ? `<button class="v-img" data-open="${esc(i.id)}" aria-label="Open ${esc(i.t)} case study">${photo(cands(i.pic), i.t)}<span class="v-chip">Case study</span></button>`
-      : `<div class="v-img solo">${icon("i-arrow")}</div>`;
-    return `<article class="vcard" style="animation-delay:${Math.min(n, 8) * 50}ms">${img}<div class="v-body"><h3>${esc(i.t)}</h3><div class="v-links">${btns}</div></div></article>`;
-  };
-  const drawFilters = () => {
-    if (present.length < 2) { fl.hidden = true; return; }
-    fl.innerHTML = ["all", ...present].map(k => `<button class="btn sm" data-k="${k}" aria-pressed="${k === cur}">${k === "all" ? "All" : PLATFORMS[k].n}</button>`).join("");
-  };
-  const draw = () => {
-    const shown = items.filter(i => cur === "all" || i[cur]);
-    box.innerHTML = shown.length ? shown.map(vcard).join("") : `<p class="muted empty">Videos and posts are coming soon.</p>`;
-  };
-  fl.addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) { cur = b.dataset.k; drawFilters(); draw(); } });
-  box.addEventListener("click", e => { const b = e.target.closest("[data-open]"); if (b) openProject(b.dataset.open, b); });
-  const follow = KEYS.map(k => { const u = cleanUrl(PROFILE_LINKS[k]); return u ? `<a class="btn ${CLS[k]}" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${icon(PLATFORMS[k].i)}Follow on ${PLATFORMS[k].n}</a>` : ""; }).join("");
-  $("#followRow").innerHTML = follow;
-  $("#followRow").hidden = !follow;
-  drawFilters(); draw();
-}
-
 function initProjects() {
   const cats = ["All", "Has video", ...new Set(PROJECTS.map(p => p.c))];
   const fb = $("#filters"), grid = $("#grid"), search = $("#search"), empty = $("#empty"), count = $("#pCount");
@@ -807,7 +780,7 @@ function initPalette() {
   const go = id => { const t = document.getElementById(id); if (t) t.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); };
   const mail = emailOk();
   const cmds = [
-    ...[["top","Home"],["about","About"],["skills","Skills"],["projects","Projects"],["watch","Watch"],["media","Media"],["education","Education"],["contact","Contact"]]
+    ...[["top","Home"],["about","About"],["skills","Skills"],["projects","Projects"],["media","Media"],["education","Education"],["contact","Contact"]]
       .map(([id, n]) => ({n:"Go to " + n, k:"Section", run:() => go(id)})),
     {n:"Chat on WhatsApp", k:"Contact", run:() => window.open(waLink("Hi Mckenzie, I found your engineering portfolio."), "_blank", "noopener,noreferrer")},
     ...(mail ? [{n:"Email me", k:"Contact", run:() => { location.href = "mailto:" + mail; }}, {n:"Copy email address", k:"Contact", run:() => copyText(mail, "Email copied")}] : []),
@@ -857,5 +830,5 @@ function initDeepLink() {
 }
 
 initLoader(); initTheme(); initName(); initMedia(); initContact(); initNav(); initTyped(); initTerminal();
-initSkills(); initProjects(); initWatch(); initStats(); initDialogs(); initPalette(); initTilt();
+initSkills(); initProjects(); initStats(); initDialogs(); initPalette(); initTilt();
 initMagnet(); initSpot(); initReveal(); initFx(); initDeepLink(); initClock(); initRipple(); initScramble();
