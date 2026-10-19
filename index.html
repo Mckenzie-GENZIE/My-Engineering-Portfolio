@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
 <title>Mckenzie GENZIE | Electrical and Communications Engineering Portfolio</title>
 <meta name="description" content="Portfolio of Mckenzie GENZIE, an Electrical and Communications Engineering student at PNG University of Technology building embedded, IoT, automation and gesture-control prototypes.">
 <meta property="og:title" content="Mckenzie GENZIE | Engineering Portfolio">
@@ -14,8 +15,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Mckenzie Genzie","jobTitle":"Electrical and Communications Engineering Student","alumniOf":"Papua New Guinea University of Technology"}
+</script>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></symbol>
+</svg>
 
 <div id="loader" aria-hidden="true">
   <div class="ld-bolt"></div>
@@ -24,9 +32,9 @@
   <p class="ld-pct" id="ldPct">0%</p>
 </div>
 
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="bg" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
 <div class="grid-bg" aria-hidden="true"></div>
-<div class="grain" aria-hidden="true"></div>
 <div id="bar" aria-hidden="true"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <nav class="dots" id="dots" aria-label="Section dots"></nav>
@@ -39,12 +47,13 @@
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
+    <a href="#watch">Watch</a>
     <a href="#media">Media</a>
     <a href="#education">Education</a>
     <a href="#contact" class="nav-cta">Contact</a>
     <div class="tools">
-      <button class="icon-btn" id="kBtn" aria-label="Open command palette" title="Command palette (Ctrl+K)">⌘K</button>
-      <button class="icon-btn" id="themeBtn" aria-label="Toggle light and dark theme" title="Toggle theme">◐</button>
+      <button class="icon-btn" id="kBtn" aria-label="Open command palette">⌘K</button>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle light and dark theme">◐</button>
       <div class="swatches" id="swatches" role="group" aria-label="Accent colour"></div>
     </div>
   </nav>
@@ -62,17 +71,16 @@
     <p class="muted reveal">Aspiring Automation and Controls Engineer · Papua New Guinea University of Technology, Lae.</p>
     <div class="actions reveal">
       <a class="btn primary" href="#projects">View projects</a>
-      <a class="btn" href="#contact">Contact me</a>
+      <a class="btn wa" data-wa target="_blank" rel="noopener noreferrer"><svg class="ic"><use href="#i-wa"/></svg>WhatsApp me</a>
       <a class="btn" id="cvBtn" hidden download>Download CV</a>
     </div>
     <div class="socials reveal" data-profile-links></div>
-    <p class="hint reveal">Press <kbd>Ctrl</kbd>+<kbd>K</kbd> for the command palette · <kbd>/</kbd> to search projects</p>
+    <p class="hint reveal" id="kHint">Press <kbd>Ctrl</kbd>+<kbd>K</kbd> for the command palette · <kbd>/</kbd> to search projects</p>
   </div>
 
   <figure class="portrait reveal" id="portraitWrap">
     <div class="ring"></div>
     <div class="ring r2"></div>
-    <div class="orbit" aria-hidden="true"><span>ESP32</span><span>Arduino</span><span>Python</span><span>IoT</span></div>
     <div class="pimg" id="portrait">
       <img id="portraitImg" alt="Portrait of Mckenzie GENZIE">
     </div>
@@ -86,10 +94,8 @@
   <div class="stat reveal"><b data-count="0" id="sProjects">0</b><span>Projects built</span></div>
   <div class="stat reveal"><b data-count="0" id="sCats">0</b><span>Disciplines</span></div>
   <div class="stat reveal"><b data-count="0" id="sSkills">0</b><span>Technical interests</span></div>
-  <div class="stat reveal"><b data-count="2">0</b><span>Public showcases</span></div>
+  <div class="stat reveal"><b data-count="0" id="sVideos">0</b><span>Videos and posts</span></div>
 </section>
-
-<!-- Section numbers (01, 02, 03...) are added automatically by CSS, in the order the sections appear. -->
 
 <section id="about" class="section num">
   <p class="eyebrow reveal">About</p>
@@ -121,7 +127,7 @@
 <section id="projects" class="section num">
   <p class="eyebrow reveal">Projects</p>
   <h2 class="reveal">Engineering projects</h2>
-  <p class="muted reveal">Student prototypes. Each one has a main view and three shots. Press <kbd>/</kbd> to search.</p>
+  <p class="muted reveal">Tap a project for the full case study, photos, and the real TikTok and LinkedIn videos.</p>
   <div class="toolbar reveal">
     <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
     <div class="search-wrap">
@@ -131,6 +137,24 @@
   </div>
   <div class="grid" id="grid"></div>
   <p class="muted empty" id="empty" hidden>No projects match your search.</p>
+</section>
+
+<section id="watch" class="section num">
+  <p class="eyebrow reveal">Watch</p>
+  <h2 class="reveal">Watch and follow</h2>
+  <p class="muted reveal">Real videos and posts of the builds, straight from TikTok and LinkedIn.</p>
+  <div class="watch-grid">
+    <div class="panel reveal watch-col">
+      <h3>TikTok</h3>
+      <a class="btn sm tt" id="ttProfile" target="_blank" rel="noopener noreferrer" hidden>Follow on TikTok</a>
+      <div class="vlist" id="ttList"></div>
+    </div>
+    <div class="panel reveal watch-col">
+      <h3>LinkedIn</h3>
+      <a class="btn sm li" id="liProfile" target="_blank" rel="noopener noreferrer" hidden>Connect on LinkedIn</a>
+      <div class="vlist" id="liList"></div>
+    </div>
+  </div>
 </section>
 
 <section id="media" class="section num">
@@ -162,16 +186,35 @@
 <section id="contact" class="section num contact">
   <p class="eyebrow reveal">Contact</p>
   <h2 class="reveal">Let's build something</h2>
-  <p class="reveal">Have a project idea, feedback or an opportunity? Email me directly.</p>
-  <div class="contact-card panel reveal">
-    <span class="cc-label">Email</span>
-    <b class="cc-email unset" id="emailText">Email address coming soon</b>
-    <div class="actions">
-      <a class="btn primary" id="emailBtn" hidden>Email me</a>
-      <button class="btn" id="copyEmail" hidden>Copy email</button>
-      <button class="btn" id="copyLink">Copy site link</button>
+  <p class="reveal">Have a project idea, feedback or an opportunity? Message me on WhatsApp or send an email.</p>
+  <div class="contact-grid">
+    <div class="contact-card panel reveal">
+      <span class="cc-label">WhatsApp</span>
+      <b class="cc-email" id="waText"></b>
+      <div class="actions">
+        <a class="btn wa" data-wa target="_blank" rel="noopener noreferrer"><svg class="ic"><use href="#i-wa"/></svg>Chat on WhatsApp</a>
+        <button class="btn" id="copyWa" type="button">Copy number</button>
+      </div>
+    </div>
+    <div class="contact-card panel reveal">
+      <span class="cc-label">Email</span>
+      <b class="cc-email unset" id="emailText">Email address coming soon</b>
+      <div class="actions">
+        <a class="btn primary" id="emailBtn" hidden>Email me</a>
+        <button class="btn" id="copyEmail" type="button" hidden>Copy email</button>
+      </div>
     </div>
   </div>
+  <form class="panel reveal msg-form" id="msgForm" autocomplete="off">
+    <span class="cc-label">Quick message</span>
+    <input id="fName" type="text" placeholder="Your name" aria-label="Your name" maxlength="60">
+    <textarea id="fMsg" rows="4" placeholder="Write your message..." aria-label="Your message" maxlength="600" required></textarea>
+    <div class="actions">
+      <button class="btn wa" type="submit"><svg class="ic"><use href="#i-wa"/></svg>Send on WhatsApp</button>
+      <button class="btn" type="button" id="sendMail">Send by email</button>
+      <button class="btn" type="button" id="shareSite">Share this site</button>
+    </div>
+  </form>
   <p class="mono find-label reveal" id="findMe" hidden>Find me online</p>
   <div class="socials reveal" data-profile-links></div>
 </section>
@@ -183,13 +226,16 @@
   <div class="socials foot-links" data-profile-links></div>
 </footer>
 
-<button id="toTop" class="to-top" aria-label="Back to top" hidden>↑</button>
+<div class="fabs">
+  <button id="toTop" class="to-top" aria-label="Back to top" hidden>↑</button>
+  <a class="fab" data-wa target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><svg><use href="#i-wa"/></svg></a>
+</div>
 
 <dialog id="dlg" aria-labelledby="dlgTitle">
   <div class="dbar">
     <span class="mono" id="dCount"></span>
     <div class="dnav">
-      <button id="dShare" class="btn sm" aria-label="Copy link to this project">Copy link</button>
+      <button id="dShare" class="btn sm" aria-label="Share this project">Share</button>
       <button id="dPrev" class="btn sm" aria-label="Previous project">‹</button>
       <button id="dNext" class="btn sm" aria-label="Next project">›</button>
       <button id="dlgClose" class="btn sm" aria-label="Close case study">✕</button>
@@ -211,6 +257,8 @@
   <ul id="palList" role="listbox"></ul>
   <p class="pal-hint mono">↑ ↓ to move · Enter to select · Esc to close</p>
 </dialog>
+
+<noscript><p style="padding:90px 20px;text-align:center">Please enable JavaScript to view this portfolio.</p></noscript>
 
 <script src="script.js"></script>
 </body>
