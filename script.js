@@ -7,8 +7,9 @@ const CONTACT = {
 const PROFILE_LINKS = {
   tiktok: "https://www.tiktok.com/@mckenzie.genzie",
   linkedin: "https://www.linkedin.com/in/mckenzie-genzie-017250370",
-  github: "",
+  facebook: "",
   youtube: "",
+  github: "",
   website: "",
   others: []
 };
@@ -20,6 +21,12 @@ const FEATURED_TIKTOK = [
 ];
 
 const FEATURED_LINKEDIN = [
+  {title: "", url: ""},
+  {title: "", url: ""},
+  {title: "", url: ""}
+];
+
+const FEATURED_FACEBOOK = [
   {title: "", url: ""},
   {title: "", url: ""},
   {title: "", url: ""}
@@ -38,6 +45,20 @@ const cands = (...bases) => bases.flatMap(b => EXTS.map(e => IMGDIR + b + "." + 
 const ACCENTS = {ice:"94,234,255", sky:"70,150,255", violet:"150,130,255", rose:"255,110,160", amber:"255,184,0"};
 const ROLES = ["Electrical & Communications Engineering Student","Embedded Systems Builder","IoT & Automation Developer","Gesture Control Experimenter"];
 const BOOT = ["INITIALIZING SYSTEMS","LOADING MODULES","CALIBRATING SENSORS","SYSTEM ONLINE"];
+
+const PLATFORMS = {
+  whatsapp: {n:"WhatsApp", i:"i-wa", c:"37,211,102"},
+  email: {n:"Email", i:"i-mail", c:"94,234,255"},
+  tiktok: {n:"TikTok", i:"i-tt", c:"255,90,170"},
+  linkedin: {n:"LinkedIn", i:"i-li", c:"70,150,255"},
+  facebook: {n:"Facebook", i:"i-fb", c:"24,119,242"},
+  youtube: {n:"YouTube", i:"i-yt", c:"255,59,59"},
+  github: {n:"GitHub", i:"i-code", c:"170,170,255"},
+  website: {n:"Website", i:"i-link", c:"94,234,255"}
+};
+const KEYS = ["tiktok", "linkedin", "facebook"];
+const CLS = {tiktok:"tt", linkedin:"li", facebook:"fb"};
+const DEFAULT_MSG = "Hi Mckenzie, I found your engineering portfolio and I would like to talk.";
 
 const GROUPS = [
   {n:"Embedded and IoT", i:["Embedded systems","Internet of Things","Arduino, ESP32, ESP8266","Energy monitoring"]},
@@ -62,74 +83,83 @@ const TERM_LINES = [
 const PIC = (main, sb = main) => ({pic: main, sb});
 
 const PROJECTS = [
-  {id:"ultra",...PIC("jarvis-ultra"),feat:true,t:"KENZII JARVIS-ULTRA: The Holographic Control Panel",c:"Automation",s:"Simulation-mode prototype with live demo",
-   tiktok:"https://www.tt.site/t/ZSghMvV4U/",linkedin:"https://lnkd.in/p/gEBn8HDE",page:"KENZII_JARVIS.html",news:"",
+  {id:"ultra",...PIC("jarvis-ultra"),feat:true,t:"KENZII JARVIS-ULTRA: The Holographic Control Panel",c:"Automation",s:"Simulation-mode prototype",
+   tiktok:"https://www.tt.site/t/ZSghMvV4U/",linkedin:"https://lnkd.in/p/gEBn8HDE",
    d:"A holographic-style control panel that runs in a normal web browser. Control machines with hand gestures or voice using just a laptop and a webcam.",
    why:"Built for PNG: low-cost, hands-free control for remote sites such as mines, farms and water plants, plus a simulation where new operators can train safely before touching real machines.",
    hw:["Laptop and webcam","ESP32, Arduino, Raspberry Pi (planned link)"],
    sw:["Hand gesture tracking","Voice commands","Live 3D models: robot arm, drone, reactor, globe","Web control panel"],
    f:["Pinch, zoom and rotate with hand gestures","Voice commands such as \u201cJarvis, turn on the pump\u201d","Controls for lights, fans, motors, pumps and relays","Live sensor readouts: temperature, distance, voltage (simulated for now)"],
    l:"Runs in simulation mode today. Connecting real hardware (Arduino, ESP32, Raspberry Pi) is the next step. Not safety-rated and never a replacement for protective devices or emergency stops."},
-  {id:"jarvis",...PIC("jarvis-interface","jarvis"),t:"Kenzii Jarvis: 3D Hand Gesture Interface",c:"Automation",s:"Experimental prototype with live demo",
-   tiktok:"https://www.tt.site/t/ZSghMAoQY/",linkedin:"https://lnkd.in/p/gRP6_dwj",page:"jarvis.html",news:"",
+  {id:"jarvis",...PIC("jarvis-interface","jarvis"),t:"Kenzii Jarvis: 3D Hand Gesture Interface",c:"Automation",s:"Experimental prototype",
+   tiktok:"https://www.tt.site/t/ZSghMAoQY/",linkedin:"https://lnkd.in/p/gRP6_dwj",
    d:"A webcam hand-tracking HUD that recognises gestures and can drive a computer interface and Arduino outputs.",
    hw:["Webcam","Arduino"],sw:["Hand tracking","Face and voice modules","Web Serial / Python serial link"],
    f:["Live hand tracking overlay","Gesture-to-command mapping","Serial commands to Arduino"],
-   l:"Experimental human-machine interface. The camera starts only when you launch the demo. Gesture control is not safety-rated and never replaces protective devices or emergency stops."},
+   l:"Experimental human-machine interface. Gesture control is not safety-rated and never replaces protective devices or emergency stops."},
   {id:"panel",...PIC("control-panel"),t:"AI-Integrated Electrical Control Panel",c:"Automation",s:"Documented prototype. Demonstrated at Unitech Open Day 2026.",
-   tiktok:"https://www.tt.site/t/ZSghMtRYF/",linkedin:"https://www.linkedin.com/posts/mckenzie-genzie-017250370_ai-integrated-electrical-control-panel-im-activity-7490369172602908673-nLg1",page:"",news:"",
+   tiktok:"https://www.tt.site/t/ZSghMtRYF/",linkedin:"https://www.linkedin.com/posts/mckenzie-genzie-017250370_ai-integrated-electrical-control-panel-im-activity-7490369172602908673-nLg1",
    d:"An ESP32-based electrical control and smart-home prototype with a web interface.",
    hw:["ESP32","Relays","Lighting, fan and outlet loads"],sw:["Web interface","Voice and text assistant (English, Tok Pisin)","Camera hand-gesture interaction"],
    f:["Individual and master lighting control","Three-speed fan control","General outlet control","Virtual main breaker interface","Energy-monitoring displays and graphs","Login and access control","Scheduling, activity logs, remote access","Diagnostics and report export"],
    l:"Features are as described in the public project post. No measurement accuracy, ratings or security certification is claimed. The virtual breaker is a software interface and not a protective device."},
-  {id:"home",...PIC("smart-home"),t:"IoT Smart Home Automation",c:"IoT",s:"Working prototype",tiktok:"https://www.tt.site/t/ZSghBMPp6/",linkedin:"https://lnkd.in/p/guThTYQ2",page:"",news:"",
+  {id:"home",...PIC("smart-home"),t:"IoT Smart Home Automation",c:"IoT",s:"Working prototype",
+   tiktok:"https://www.tt.site/t/ZSghBMPp6/",linkedin:"https://lnkd.in/p/guThTYQ2",
    d:"Remote control of lighting and a fan through relays and a web interface on an ESP32.",
    hw:["ESP32","Relay module","Light and fan"],sw:["Web interface","Internet-accessible link"],
    f:["Reported test: a collaborator in Chimbu accessed the system hosted in Lae through an internet link"],
    l:"A student prototype. No credentials, internal addresses or tunnel details are published here."},
   {id:"ssids",...PIC("smart-student-id"),t:"Smart Student ID Card System (SSIDS)",c:"Embedded",s:"Prototype shown at TechnoFest 2026",
-   tiktok:"https://www.tt.site/t/ZSghMoYpv/",linkedin:"https://www.linkedin.com/posts/mckenzie-genzie-017250370_technofest2026-ssids-rfid-activity-7505052164084555776-ktAt",page:"",news:"",
+   tiktok:"https://www.tt.site/t/ZSghMoYpv/",linkedin:"https://www.linkedin.com/posts/mckenzie-genzie-017250370_technofest2026-ssids-rfid-activity-7505052164084555776-ktAt",
    d:"An RFID prototype exploring one student card for several campus services.",
    hw:["RFID RC522","Arduino Uno","ESP32","Cards, relays, LEDs, buzzers, push buttons"],sw:["Dashboard and database concepts"],
    f:["Student attendance","Dormitory access authorization","Mess access authorization"],
    l:"Not deployed by the university and not integrated with official university records."},
   {id:"gesture",...PIC("gesture-hmi"),t:"Python-Arduino Gesture-Controlled HMI",c:"Automation",s:"Experiment",
-   tiktok:"https://www.tt.site/t/ZSghraQWJ/",linkedin:"https://lnkd.in/p/gzPbN633",page:"",news:"",
+   tiktok:"https://www.tt.site/t/ZSghraQWJ/",linkedin:"https://lnkd.in/p/gzPbN633",
    d:"A webcam gesture recognition experiment that operates electrical loads and a computer interface.",
    hw:["Webcam","Arduino","Electrical loads"],sw:["Python"],
    f:["Workflow: camera, then Python recognition, then serial command, then Arduino output"],
    l:"Experimental human-machine interaction. It is not a safety-rated industrial control system."},
-  {id:"fire",...PIC("fire-detection"),t:"Fire Detection and Monitoring Prototype",c:"IoT",s:"Prototype",tiktok:"https://www.tt.site/t/ZSghrshg2/",linkedin:"https://lnkd.in/p/gWAn4s5B",page:"https://www.facebook.com/share/r/19aibA4h8s/",news:"https://share.google/GxTOk0PeUcYHDL3dG",
+  {id:"fire",...PIC("fire-detection"),t:"Fire Detection and Monitoring Prototype",c:"IoT",s:"Prototype",
+   tiktok:"https://www.tt.site/t/ZSghrshg2/",linkedin:"https://lnkd.in/p/gWAn4s5B",facebook:"https://www.facebook.com/share/r/19aibA4h8s/",news:"https://share.google/GxTOk0PeUcYHDL3dG",
    d:"An ESP32 prototype that raises local and phone/PC alerts.",
    hw:["ESP32","Flame sensor","Temperature/humidity sensor","Ultrasonic sensor","LEDs","Buzzer"],sw:["Notification to phone and PC"],
    f:["Indicator and buzzer alerts","Phone and PC notification"],
    l:"A student prototype and not a certified replacement for a compliant fire alarm system."},
-  {id:"water",...PIC("water-dispenser"),t:"Touchless Automatic Water Dispenser",c:"Embedded",s:"Prototype",tiktok:"https://www.tt.site/t/ZSghh643t/",linkedin:"https://lnkd.in/p/guZrxT6J",page:"",news:"",
+  {id:"water",...PIC("water-dispenser"),t:"Touchless Automatic Water Dispenser",c:"Embedded",s:"Prototype",
+   tiktok:"https://www.tt.site/t/ZSghh643t/",linkedin:"https://lnkd.in/p/guZrxT6J",
    d:"An Arduino dispenser that starts when a cup is detected and stops when it is removed.",
    hw:["Arduino","Ultrasonic sensor","Relay module","DC water pump"],sw:["Arduino C/C++"],
    f:["Cup detection starts the pump","Removing the cup stops the pump"],
    l:"No dispensing rate, water-quality or reliability figures are claimed."},
-  {id:"vlc",...PIC("visible-light-communication"),t:"Visible Light Communication",c:"Communications",s:"Early educational experiment",tiktok:"https://www.tt.site/t/ZSghkewmK/",linkedin:"https://lnkd.in/p/gsBFQAgJ",page:"",news:"",
+  {id:"vlc",...PIC("visible-light-communication"),t:"Visible Light Communication",c:"Communications",s:"Early educational experiment",
+   tiktok:"https://www.tt.site/t/ZSghkewmK/",linkedin:"https://lnkd.in/p/gsBFQAgJ",
    d:"A message is converted to binary, sent as LED light pulses and decoded by a phone.",
    hw:["Arduino","LED","Phone receiver"],sw:["Binary encoding and decoding"],
    f:["Text to binary","LED pulse transmission","Phone-side decoding"],
    l:"An educational prototype and not a high-speed optical communication product."},
-  {id:"hub",...PIC("privacy-hub"),t:"Personal Privacy Hub",c:"Communications",s:"Concept prototype",tiktok:"",linkedin:"https://lnkd.in/p/gfazJd3D",page:"",news:"",
+  {id:"hub",...PIC("privacy-hub"),t:"Personal Privacy Hub",c:"Communications",s:"Concept prototype",
+   linkedin:"https://lnkd.in/p/gfazJd3D",
    d:"An ESP32 communication prototype exploring temporary sessions and administrator-issued access codes.",
    hw:["ESP32"],sw:["Text and file messaging","Session management","Optional local export","Cloudflare Tunnel for connectivity"],
    f:["Temporary sessions","Admin-issued access codes","Reduced persistent conversation storage"],
    l:"Cloudflare Tunnel provides connectivity and does not by itself give end-to-end encryption or anonymity. The system is not audited or claimed to be secure."},
-  {id:"instrument",...PIC("virtual-instrument"),t:"Gesture-Controlled Virtual Instrument",c:"Automation",s:"Documented. Details to be confirmed.",tiktok:"https://www.tt.site/t/ZSghkBVfR/",linkedin:"https://lnkd.in/p/gSSAxWia",page:"",
+  {id:"instrument",...PIC("virtual-instrument"),t:"Gesture-Controlled Virtual Instrument",c:"Automation",s:"Documented. Details to be confirmed.",
+   tiktok:"https://www.tt.site/t/ZSghkBVfR/",linkedin:"https://lnkd.in/p/gSSAxWia",
    news:"https://fm100.com.pg/2026/09/30/from-lae-classroom-to-smart-tech-dreams/",
    d:"A project mentioned in the Kalang News feature.",hw:["To be confirmed"],sw:["To be confirmed"],f:["To be confirmed"],
    l:"Sensors, musical mapping and performance are not stated until confirmed by the owner."},
-  {id:"wiring",...PIC("electrical-installation"),t:"Electrical House Wiring and Solar Installation",c:"Electrical",s:"Practical experience. Scope to be confirmed.",tiktok:"https://www.tt.site/t/ZSghkVbP2/",linkedin:"https://lnkd.in/p/gj8DhRHi",page:"",news:"",
+  {id:"wiring",...PIC("electrical-installation"),t:"Electrical House Wiring and Solar Installation",c:"Electrical",s:"Practical experience. Scope to be confirmed.",
+   tiktok:"https://www.tt.site/t/ZSghkVbP2/",linkedin:"https://lnkd.in/p/gj8DhRHi",
    d:"Hands-on electrical installation experience described in the public profile and news feature.",hw:["To be confirmed"],sw:[],f:["Exact scope and equipment to be supplied by the owner"],
    l:"This was student or supervised practical experience. It is not a professional licence or independent authorization to perform electrical installations."},
-  {id:"rf",...PIC("rf-learning"),t:"RF and Analog Electronics Learning",c:"Communications",s:"Educational content",tiktok:"https://www.tt.site/t/ZSghkSAvU/",linkedin:"https://lnkd.in/p/gvJ2cNfZ",page:"",news:"",
+  {id:"rf",...PIC("rf-learning"),t:"RF and Analog Electronics Learning",c:"Communications",s:"Educational content",
+   tiktok:"https://www.tt.site/t/ZSghkSAvU/",linkedin:"https://lnkd.in/p/gvJ2cNfZ",
    d:"Study notes on a two-transistor RF oscillator and how audio relates to radio-frequency transmission.",hw:[],sw:[],f:["Circuit analysis and explanation"],
    l:"Educational work. No working transmitter, legal authorization or measured frequency stability is claimed."},
-  {id:"bin",...PIC("smart-bin"),t:"Smart Waste Management System (Touchless Smart Bin)",c:"Automation",s:"Working prototype",tiktok:"https://www.tt.site/t/ZSghB1Rnj/",linkedin:"https://lnkd.in/p/g8Qyupav",page:"",news:"",
+  {id:"bin",...PIC("smart-bin"),t:"Smart Waste Management System (Touchless Smart Bin)",c:"Automation",s:"Working prototype",
+   tiktok:"https://www.tt.site/t/ZSghB1Rnj/",linkedin:"https://lnkd.in/p/g8Qyupav",
    d:"A touchless rubbish bin that opens and closes without physical contact. By day it uses computer vision and hand gestures. At night an ultrasonic sensor detects a person and opens the lid.",
    why:"Improves hygiene and reduces the spread of germs in public places such as hospitals, schools, airports and markets.",
    hw:["Ultrasonic sensor","Camera","12V DC linear actuator","240V light bulb","Arduino"],
@@ -143,11 +173,12 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const list = a => a && a.length ? "<ul>" + a.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "<p class='muted'>None listed.</p>";
 const chips = a => a && a.length ? '<ul class="chips">' + a.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : "<p class='muted'>None listed.</p>";
+const icon = (id, cls = "ic") => `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
 const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const pad = n => String(n).padStart(2, "0");
 const root = document.documentElement;
-let accent = ACCENTS.ice, accentKey = "ice", toastTimer = 0;
+let accent = ACCENTS.ice, accentKey = "ice", toastTimer = 0, fxApi = null;
 
 function cleanUrl(u) {
   u = String(u || "").trim();
@@ -155,7 +186,7 @@ function cleanUrl(u) {
   if (!/^https?:\/\//i.test(u)) u = "https://" + u;
   try { return new URL(u).href; } catch (e) { return ""; }
 }
-PROJECTS.forEach(p => { p.tiktok = cleanUrl(p.tiktok); p.linkedin = cleanUrl(p.linkedin); p.news = cleanUrl(p.news); });
+PROJECTS.forEach(p => { ["tiktok", "linkedin", "facebook", "news"].forEach(k => { p[k] = cleanUrl(p[k]); }); });
 
 const waLink = msg => "https://wa.me/" + CONTACT.whatsapp + (msg ? "?text=" + encodeURIComponent(msg) : "");
 const pageUrl = h => location.origin + location.pathname + (h || "");
@@ -170,7 +201,7 @@ function imgFail(img) {
   else { const p = img.parentElement; if (p) p.classList.add("missing"); img.remove(); }
 }
 const photo = (l, alt) => l && l.length
-  ? `<span class="ph" data-label="Add ${esc(l[0])}"><img src="${esc(l[0])}" alt="${esc(alt)}" loading="lazy" decoding="async" data-c="${esc(l.join("|"))}" data-i="0" onerror="imgFail(this)"></span>`
+  ? `<span class="ph" data-label="Add ${esc(l[0])}"><img src="${esc(l[0])}" alt="${esc(alt)}" loading="lazy" decoding="async" data-c="${esc(l.join("|"))}" data-i="0" onerror="imgFail(this)" onload="this.parentElement.style.animation='none'"></span>`
   : `<span class="ph missing" data-label="Add image"></span>`;
 
 function toast(msg) {
@@ -198,12 +229,99 @@ async function shareLink(url, title, text) {
 }
 const lockScroll = () => { document.body.style.overflow = $$("dialog[open]").length || $("#menu").classList.contains("open") ? "hidden" : ""; };
 
-const LINK_LABELS = {tiktok:"TikTok", linkedin:"LinkedIn", github:"GitHub", youtube:"YouTube", website:"Website"};
 function profileList() {
   const out = [];
-  Object.keys(LINK_LABELS).forEach(k => { const u = cleanUrl(PROFILE_LINKS[k]); if (u) out.push({label:LINK_LABELS[k], url:u, k}); });
-  (PROFILE_LINKS.others || []).forEach(o => { const u = cleanUrl(o && o.url); if (u && o.label) out.push({label:String(o.label), url:u, k:"other"}); });
+  ["tiktok", "linkedin", "facebook", "youtube", "github", "website"].forEach(k => {
+    const u = cleanUrl(PROFILE_LINKS[k]);
+    if (u) out.push({k, n:PLATFORMS[k].n, url:u, sub:"Open profile"});
+  });
+  (PROFILE_LINKS.others || []).forEach(o => {
+    const u = cleanUrl(o && o.url);
+    if (u && o.label) out.push({k:"other", n:String(o.label), url:u, sub:"Open profile"});
+  });
   return out;
+}
+function connectList() {
+  const out = [{k:"whatsapp", url:waLink(DEFAULT_MSG), sub:CONTACT.whatsappLabel}];
+  const e = emailOk();
+  if (e) out.push({k:"email", url:"mailto:" + e + "?subject=" + encodeURIComponent("Portfolio enquiry"), sub:e});
+  profileList().forEach(p => out.push(p));
+  return out.map(o => { const pl = PLATFORMS[o.k] || PLATFORMS.website; return {...o, n:o.n || pl.n, i:pl.i, c:pl.c}; });
+}
+function watchItems() {
+  const base = PROJECTS.filter(p => KEYS.some(k => p[k])).map(p => ({id:p.id, t:p.t, pic:p.pic, tiktok:p.tiktok, linkedin:p.linkedin, facebook:p.facebook}));
+  const extra = [];
+  [[FEATURED_TIKTOK, "tiktok", "TikTok video"], [FEATURED_LINKEDIN, "linkedin", "LinkedIn post"], [FEATURED_FACEBOOK, "facebook", "Facebook video"]].forEach(([arr, k, def]) => {
+    arr.forEach(x => { const u = cleanUrl(x.url); if (u) extra.push({t:x.title || def, [k]:u}); });
+  });
+  return [...base, ...extra];
+}
+const linkCount = () => watchItems().reduce((n, i) => n + KEYS.filter(k => i[k]).length, 0);
+
+/* ---------- NEW: save contact as .vcf ---------- */
+function saveContact() {
+  const e = emailOk();
+  const lines = [
+    "BEGIN:VCARD", "VERSION:3.0",
+    "FN:Mckenzie Genzie", "N:Genzie;Mckenzie;;;",
+    "TITLE:Electrical and Communications Engineering Student",
+    "ORG:Papua New Guinea University of Technology",
+    "TEL;TYPE=CELL:+" + CONTACT.whatsapp
+  ];
+  if (e) lines.push("EMAIL;TYPE=INTERNET:" + e);
+  profileList().forEach(p => lines.push("URL:" + p.url));
+  lines.push("ADR;TYPE=WORK:;;Lae;Morobe;;;Papua New Guinea", "NOTE:Engineering portfolio - " + pageUrl(""), "END:VCARD");
+  const blob = new Blob([lines.join("\r\n")], {type:"text/vcard;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Mckenzie-Genzie.vcf";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+  toast("Contact card downloaded");
+}
+
+/* ---------- NEW: live Lae clock ---------- */
+function initClock() {
+  const el = $("#clock");
+  if (!el) return;
+  let f;
+  try { f = new Intl.DateTimeFormat("en-GB", {hour:"2-digit", minute:"2-digit", hour12:false, timeZone:"Pacific/Port_Moresby"}); } catch (e) { f = null; }
+  const tick = () => { el.textContent = f ? f.format(new Date()) : new Date().toTimeString().slice(0, 5); };
+  tick();
+  setInterval(tick, 15000);
+}
+
+/* ---------- NEW: click ripple ---------- */
+function initRipple() {
+  if (reduce) return;
+  document.addEventListener("pointerdown", e => {
+    const b = e.target.closest(".btn");
+    if (!b) return;
+    const r = b.getBoundingClientRect(), s = Math.max(r.width, r.height) * 1.6;
+    const sp = document.createElement("span");
+    sp.className = "rip";
+    sp.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX - r.left - s / 2}px;top:${e.clientY - r.top - s / 2}px`;
+    b.appendChild(sp);
+    setTimeout(() => sp.remove(), 650);
+  });
+}
+
+/* ---------- NEW: heading decode effect ---------- */
+function initScramble() {
+  if (reduce) return;
+  const chars = "01<>/#$%&*+=";
+  const run = el => {
+    const txt = el.dataset.t;
+    let f = 0;
+    const id = setInterval(() => {
+      el.textContent = [...txt].map((c, i) => c === " " ? " " : (i < f / 1.5 ? c : chars[Math.floor(Math.random() * chars.length)])).join("");
+      if (++f > txt.length * 1.5) { clearInterval(id); el.textContent = txt; }
+    }, 28);
+  };
+  const io = new IntersectionObserver((es, o) => {
+    es.forEach(e => { if (e.isIntersecting) { run(e.target); o.unobserve(e.target); } });
+  }, {threshold:.6});
+  $$("main h2").forEach(h => { h.dataset.t = h.textContent; h.setAttribute("aria-label", h.textContent); io.observe(h); });
 }
 
 function initLoader() {
@@ -214,7 +332,7 @@ function initLoader() {
     n = Math.min(100, n + Math.ceil(Math.random() * 12));
     p.textContent = n + "%";
     m.textContent = BOOT[Math.min(BOOT.length - 1, Math.floor(n / 26))];
-    if (n >= 100) { clearInterval(t); setTimeout(hide, 200); }
+    if (n >= 100) { clearInterval(t); setTimeout(hide, 250); }
   }, 55);
   setTimeout(hide, 3000);
 }
@@ -244,34 +362,20 @@ function initTheme() {
 }
 
 function initContact() {
-  const links = profileList();
+  const conn = connectList();
+  const ext = c => c.k === "email" ? "" : ' target="_blank" rel="noopener noreferrer"';
   $$("[data-profile-links]").forEach(box => {
-    box.innerHTML = "";
-    links.forEach(l => {
-      const a = document.createElement("a");
-      a.className = "btn sm" + (l.k === "tiktok" ? " tt" : l.k === "linkedin" ? " li" : "");
-      a.href = l.url; a.textContent = l.label;
-      a.target = "_blank"; a.rel = "noopener noreferrer";
-      box.appendChild(a);
-    });
-    box.hidden = !links.length;
+    box.innerHTML = conn.map(c => `<a class="soc" href="${esc(c.url)}" style="--c:${c.c}" aria-label="${esc(c.n)}" title="${esc(c.n)}"${ext(c)}>${icon(c.i)}</a>`).join("");
   });
-  $("#findMe").hidden = !links.length;
+  $("#hub").innerHTML = conn.map(c => `<a class="hub-card" href="${esc(c.url)}" style="--c:${c.c}"${ext(c)}>${icon(c.i, "hc-ic")}<span class="hc-t"><b>${esc(c.n)}</b><small>${esc(c.sub)}</small></span>${icon("i-arrow", "hc-ar")}</a>`).join("");
+  $$("[data-wa]").forEach(a => { a.href = waLink(DEFAULT_MSG); });
 
-  const defaultMsg = "Hi Mckenzie, I found your engineering portfolio and I would like to talk.";
-  $$("[data-wa]").forEach(a => { a.href = waLink(defaultMsg); });
-  $("#waText").textContent = CONTACT.whatsappLabel;
   $("#copyWa").addEventListener("click", () => copyText("+" + CONTACT.whatsapp, "Number copied"));
-
-  const e = emailOk(), txt = $("#emailText"), btn = $("#emailBtn"), cp = $("#copyEmail");
-  if (e) {
-    txt.textContent = e; txt.classList.remove("unset");
-    btn.href = "mailto:" + e + "?subject=" + encodeURIComponent("Portfolio enquiry");
-    btn.hidden = false; cp.hidden = false;
-    cp.addEventListener("click", () => copyText(e, "Email copied"));
-  } else {
-    btn.hidden = true; cp.hidden = true;
-  }
+  $("#copyLink").addEventListener("click", () => copyText(pageUrl(""), "Site link copied"));
+  $("#vcfBtn").addEventListener("click", saveContact);
+  $("#vcfBtn2").addEventListener("click", saveContact);
+  const e = emailOk(), cp = $("#copyEmail");
+  if (e) { cp.hidden = false; cp.addEventListener("click", () => copyText(e, "Email copied")); }
 
   const form = $("#msgForm"), nm = $("#fName"), ms = $("#fMsg");
   const compose = () => (nm.value.trim() ? "Hi Mckenzie, this is " + nm.value.trim() + ". " : "Hi Mckenzie. ") + ms.value.trim();
@@ -286,6 +390,7 @@ function initContact() {
     location.href = "mailto:" + e + "?subject=" + encodeURIComponent("Portfolio enquiry") + "&body=" + encodeURIComponent(compose());
   });
   $("#shareSite").addEventListener("click", () => shareLink(pageUrl(""), "Mckenzie GENZIE | Engineering Portfolio", "Engineering projects by Mckenzie Genzie"));
+  $("#yr").textContent = new Date().getFullYear();
 }
 
 function initMedia() {
@@ -314,7 +419,9 @@ function initName() {
 }
 
 function initNav() {
-  const btn = $("#menuBtn"), menu = $("#menu"), nav = $("#nav"), top = $("#toTop");
+  const btn = $("#menuBtn"), menu = $("#menu"), nav = $("#nav"), top = $("#toTop"), prg = $("#prg");
+  const C = 2 * Math.PI * 19;
+  prg.style.strokeDasharray = C; prg.style.strokeDashoffset = C;
   const set = o => { menu.classList.toggle("open", o); btn.setAttribute("aria-expanded", o); lockScroll(); };
   btn.addEventListener("click", () => set(!menu.classList.contains("open")));
   menu.addEventListener("click", e => { if (e.target.closest("a")) set(false); });
@@ -325,7 +432,9 @@ function initNav() {
     nav.classList.toggle("scrolled", scrollY > 30);
     top.hidden = scrollY < 600;
     const max = document.documentElement.scrollHeight - innerHeight;
-    $("#bar").style.width = (max > 0 ? scrollY / max * 100 : 0) + "%";
+    const r = max > 0 ? Math.min(1, scrollY / max) : 0;
+    $("#bar").style.width = (r * 100) + "%";
+    prg.style.strokeDashoffset = C * (1 - r);
     tick = false;
   };
   addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, {passive:true});
@@ -393,17 +502,11 @@ function countUp(el) {
   };
   requestAnimationFrame(step);
 }
-function mediaItems() {
-  const tt = [...PROJECTS.filter(p => p.tiktok).map(p => ({t:p.t, u:p.tiktok})), ...FEATURED_TIKTOK.map(x => ({t:x.title, u:cleanUrl(x.url)})).filter(x => x.u)];
-  const li = [...PROJECTS.filter(p => p.linkedin).map(p => ({t:p.t, u:p.linkedin})), ...FEATURED_LINKEDIN.map(x => ({t:x.title, u:cleanUrl(x.url)})).filter(x => x.u)];
-  return {tt, li};
-}
 function initStats() {
-  const m = mediaItems();
   $("#sProjects").dataset.count = PROJECTS.length;
   $("#sCats").dataset.count = new Set(PROJECTS.map(p => p.c)).size;
   $("#sSkills").dataset.count = INTERESTS.length;
-  $("#sVideos").dataset.count = m.tt.length + m.li.length;
+  $("#sVideos").dataset.count = linkCount();
   const io = new IntersectionObserver((es, o) => {
     es.forEach(e => { if (e.isIntersecting) { countUp(e.target); o.unobserve(e.target); } });
   }, {threshold:.5});
@@ -435,11 +538,41 @@ function initTilt() {
   wrap.addEventListener("pointerleave", () => { img.style.transform = ""; });
 }
 
+function initMagnet() {
+  if (!fine || reduce) return;
+  $$(".btn.primary,.btn.wa,.fab,.soc").forEach(el => {
+    el.addEventListener("pointermove", e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * .18, y = (e.clientY - r.top - r.height / 2) * .25;
+      el.style.translate = x.toFixed(1) + "px " + y.toFixed(1) + "px";
+    });
+    el.addEventListener("pointerleave", () => { el.style.translate = ""; });
+  });
+}
+
+function initSpot() {
+  if (!fine || reduce) return;
+  const s = $("#spot");
+  let raf = 0, x = 0, y = 0;
+  addEventListener("pointermove", e => {
+    x = e.clientX; y = e.clientY;
+    if (!raf) raf = requestAnimationFrame(() => {
+      s.style.setProperty("--sx", x + "px");
+      s.style.setProperty("--sy", y + "px");
+      s.classList.add("on");
+      raf = 0;
+    });
+  }, {passive:true});
+  document.addEventListener("pointerleave", () => s.classList.remove("on"));
+}
+
 function initFx() {
-  if (reduce) return;
+  const btn = $("#fxBtn");
+  if (reduce) { btn.hidden = true; return; }
   const c = $("#fx"), x = c.getContext("2d");
   const dpr = Math.min(devicePixelRatio || 1, 2);
-  let w = 0, h = 0, pts = [], raf = 0;
+  let w = 0, h = 0, pts = [], raf = 0, on = true;
+  try { if (localStorage.getItem("fx") === "off") on = false; } catch (e) {}
   const build = () => {
     w = innerWidth; h = innerHeight;
     c.width = w * dpr; c.height = h * dpr;
@@ -449,8 +582,7 @@ function initFx() {
   };
   const frame = () => {
     x.clearRect(0, 0, w, h);
-    const light = root.dataset.theme === "light";
-    const a = light ? .35 : .6;
+    const a = root.dataset.theme === "light" ? .35 : .6;
     for (const p of pts) {
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > w) p.vx *= -1;
@@ -471,6 +603,11 @@ function initFx() {
     }
     raf = requestAnimationFrame(frame);
   };
+  const start = () => { if (!raf) { c.style.display = ""; raf = requestAnimationFrame(frame); } };
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; x.clearRect(0, 0, w, h); c.style.display = "none"; };
+  const apply = () => { btn.setAttribute("aria-pressed", on); on ? start() : stop(); };
+  fxApi = {toggle() { on = !on; try { localStorage.setItem("fx", on ? "on" : "off"); } catch (e) {} apply(); toast(on ? "Particles on" : "Particles off"); }};
+  btn.addEventListener("click", () => fxApi.toggle());
   build();
   let lastW = innerWidth, rt = 0;
   addEventListener("resize", () => {
@@ -478,9 +615,9 @@ function initFx() {
     rt = setTimeout(() => { if (innerWidth !== lastW) { lastW = innerWidth; build(); } }, 200);
   });
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(frame);
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; } else if (on) start();
   });
-  raf = requestAnimationFrame(frame);
+  apply();
 }
 
 function initSkills() {
@@ -490,24 +627,37 @@ function initSkills() {
 }
 
 function initWatch() {
-  const m = mediaItems();
-  const profile = (id, key) => { const u = cleanUrl(PROFILE_LINKS[key]); const a = $(id); if (u) { a.href = u; a.hidden = false; } };
-  profile("#ttProfile", "tiktok");
-  profile("#liProfile", "linkedin");
-  const fill = (id, items, label, soon) => {
-    $(id).innerHTML = items.length
-      ? items.map(i => `<a class="vlink" href="${esc(i.u)}" target="_blank" rel="noopener noreferrer"><span>${esc(i.t || "Open " + label)}</span><small>Open ↗</small></a>`).join("")
-      : `<p class="muted">${soon}</p>`;
+  const items = watchItems(), box = $("#watchGrid"), fl = $("#watchFilters");
+  const present = KEYS.filter(k => items.some(i => i[k]));
+  let cur = "all";
+  const vcard = (i, n) => {
+    const btns = KEYS.filter(k => i[k]).map(k => `<a class="btn sm ${CLS[k]}" href="${esc(i[k])}" target="_blank" rel="noopener noreferrer">${icon(PLATFORMS[k].i)}${PLATFORMS[k].n}</a>`).join("");
+    const img = i.id
+      ? `<button class="v-img" data-open="${esc(i.id)}" aria-label="Open ${esc(i.t)} case study">${photo(cands(i.pic), i.t)}<span class="v-chip">Case study</span></button>`
+      : `<div class="v-img solo">${icon("i-arrow")}</div>`;
+    return `<article class="vcard" style="animation-delay:${Math.min(n, 8) * 50}ms">${img}<div class="v-body"><h3>${esc(i.t)}</h3><div class="v-links">${btns}</div></div></article>`;
   };
-  fill("#ttList", m.tt, "video", "Project videos are coming soon. Follow on TikTok to see them first.");
-  fill("#liList", m.li, "post", "Project posts are coming soon. Connect on LinkedIn to see them first.");
+  const drawFilters = () => {
+    if (present.length < 2) { fl.hidden = true; return; }
+    fl.innerHTML = ["all", ...present].map(k => `<button class="btn sm" data-k="${k}" aria-pressed="${k === cur}">${k === "all" ? "All" : PLATFORMS[k].n}</button>`).join("");
+  };
+  const draw = () => {
+    const shown = items.filter(i => cur === "all" || i[cur]);
+    box.innerHTML = shown.length ? shown.map(vcard).join("") : `<p class="muted empty">Videos and posts are coming soon.</p>`;
+  };
+  fl.addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) { cur = b.dataset.k; drawFilters(); draw(); } });
+  box.addEventListener("click", e => { const b = e.target.closest("[data-open]"); if (b) openProject(b.dataset.open, b); });
+  const follow = KEYS.map(k => { const u = cleanUrl(PROFILE_LINKS[k]); return u ? `<a class="btn ${CLS[k]}" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${icon(PLATFORMS[k].i)}Follow on ${PLATFORMS[k].n}</a>` : ""; }).join("");
+  $("#followRow").innerHTML = follow;
+  $("#followRow").hidden = !follow;
+  drawFilters(); draw();
 }
 
 function initProjects() {
-  const cats = ["All", "Live demo", "Has video", ...new Set(PROJECTS.map(p => p.c))];
+  const cats = ["All", "Has video", ...new Set(PROJECTS.map(p => p.c))];
   const fb = $("#filters"), grid = $("#grid"), search = $("#search"), empty = $("#empty"), count = $("#pCount");
   let current = "All", q = "";
-  const match = p => current === "All" ? true : current === "Live demo" ? !!p.page : current === "Has video" ? !!(p.tiktok || p.linkedin) : p.c === current;
+  const match = p => current === "All" ? true : current === "Has video" ? KEYS.some(k => p[k]) : p.c === current;
   const drawFilters = () => { fb.innerHTML = cats.map(c => `<button class="btn sm" aria-pressed="${c === current}" data-c="${esc(c)}">${esc(c)}</button>`).join(""); };
   const drawGrid = () => {
     const items = PROJECTS.filter(p => match(p) && (!q || [p.t, p.d, p.c, p.hw.join(" "), p.sw.join(" ")].join(" ").toLowerCase().includes(q)));
@@ -521,10 +671,10 @@ function initProjects() {
         <h3>${esc(p.t)}</h3>
         <span class="muted">${esc(p.d)}</span>
         <span class="badges">
-          ${p.page ? '<span class="tag live">Live demo</span>' : ""}
           ${p.tiktok ? '<span class="tag tt">TikTok</span>' : ""}
           ${p.linkedin ? '<span class="tag li">LinkedIn</span>' : ""}
-          <span class="tag">4 views</span>
+          ${p.facebook ? '<span class="tag fb">Facebook</span>' : ""}
+          <span class="tag">Case study →</span>
         </span>
       </button>`).join("");
   };
@@ -555,11 +705,9 @@ function setView(i) {
 }
 
 function linkButtons(p) {
-  const o = [];
-  if (p.tiktok) o.push(`<a class="btn sm tt" href="${esc(p.tiktok)}" target="_blank" rel="noopener noreferrer">Watch on TikTok</a>`);
-  if (p.linkedin) o.push(`<a class="btn sm li" href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer">View on LinkedIn</a>`);
-  if (p.news) o.push(`<a class="btn sm" href="${esc(p.news)}" target="_blank" rel="noopener noreferrer">Read news feature</a>`);
-  o.push(`<a class="btn sm wa" href="${esc(waLink('Hi Mckenzie, I saw your project "' + p.t + '" on your portfolio and I have a question.'))}" target="_blank" rel="noopener noreferrer"><svg class="ic"><use href="#i-wa"/></svg>Ask on WhatsApp</a>`);
+  const o = KEYS.filter(k => p[k]).map(k => `<a class="btn sm ${CLS[k]}" href="${esc(p[k])}" target="_blank" rel="noopener noreferrer">${icon(PLATFORMS[k].i)}${k === "linkedin" ? "View on LinkedIn" : "Watch on " + PLATFORMS[k].n}</a>`);
+  if (p.news) o.push(`<a class="btn sm" href="${esc(p.news)}" target="_blank" rel="noopener noreferrer">${icon("i-arrow")}Read news feature</a>`);
+  o.push(`<a class="btn sm wa" href="${esc(waLink('Hi Mckenzie, I saw your project "' + p.t + '" on your portfolio and I have a question.'))}" target="_blank" rel="noopener noreferrer">${icon("i-wa")}Ask on WhatsApp</a>`);
   return o.join("");
 }
 
@@ -576,10 +724,6 @@ function renderProject(i) {
       <div class="thumbs">${VL.map((l, k) => `<button class="th" data-v="${k}" aria-pressed="${k === 0}" aria-label="${l}">${photo(viewC(p, k), l)}<small>${l}</small></button>`).join("")}</div>
     </div>
     <div class="dlg-actions">${linkButtons(p)}</div>
-    <div class="dlg-actions">
-      ${p.page ? `<button class="btn primary sm" id="runDemo">Launch live demo</button><a class="btn sm" href="${esc(p.page)}" target="_blank" rel="noopener noreferrer">Open full screen</a>` : ""}
-    </div>
-    <div id="demoHost"></div>
     <h3>Overview</h3><p>${esc(p.d)}</p>
     ${p.why ? `<h3>Why it matters</h3><p>${esc(p.why)}</p>` : ""}
     <h3>Hardware</h3>${chips(p.hw)}
@@ -588,14 +732,6 @@ function renderProject(i) {
     <h3>Limitations and honest notes</h3><div class="note-box"><p>${esc(p.l)}</p></div>
     <h3>Motivation, testing, lessons learned, future improvements</h3><p class="muted">To be added from real test records.</p>`;
   setView(0);
-  const run = $("#runDemo");
-  if (run) run.addEventListener("click", () => {
-    const fr = document.createElement("iframe");
-    fr.className = "demo-frame"; fr.src = p.page; fr.title = p.t;
-    fr.allow = "camera; microphone; fullscreen";
-    $("#demoHost").appendChild(fr);
-    run.textContent = "Demo running"; run.disabled = true;
-  });
   $("#dlg").scrollTop = 0;
   try { history.replaceState(null, "", "#p-" + p.id); } catch (e) {}
 }
@@ -630,7 +766,7 @@ function initDialogs() {
     if (m && $("img", m)) { lbShow(curView); lb.showModal(); lockScroll(); }
   });
   d.addEventListener("keydown", e => {
-    if (lb.open || e.target.tagName === "IFRAME" || ["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
+    if (lb.open || ["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
     if (e.key === "ArrowRight") nav(1);
     else if (e.key === "ArrowLeft") nav(-1);
     else if (["1","2","3","4"].includes(e.key)) setView(+e.key - 1);
@@ -640,7 +776,7 @@ function initDialogs() {
   d.addEventListener("touchend", e => {
     const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
     if (lb.open) return;
-    if (Math.abs(dx) > 90 && Math.abs(dx) > Math.abs(dy) * 2 && !e.target.closest(".demo-frame")) nav(dx < 0 ? 1 : -1);
+    if (Math.abs(dx) > 90 && Math.abs(dx) > Math.abs(dy) * 2) nav(dx < 0 ? 1 : -1);
   }, {passive:true});
   d.addEventListener("close", () => {
     $("#dlgBody").innerHTML = "";
@@ -674,11 +810,14 @@ function initPalette() {
     ...[["top","Home"],["about","About"],["skills","Skills"],["projects","Projects"],["watch","Watch"],["media","Media"],["education","Education"],["contact","Contact"]]
       .map(([id, n]) => ({n:"Go to " + n, k:"Section", run:() => go(id)})),
     {n:"Chat on WhatsApp", k:"Contact", run:() => window.open(waLink("Hi Mckenzie, I found your engineering portfolio."), "_blank", "noopener,noreferrer")},
-    ...(mail ? [{n:"Email me", k:"Contact", run:() => { location.href = "mailto:" + mail; }}] : []),
+    ...(mail ? [{n:"Email me", k:"Contact", run:() => { location.href = "mailto:" + mail; }}, {n:"Copy email address", k:"Contact", run:() => copyText(mail, "Email copied")}] : []),
+    {n:"Copy WhatsApp number", k:"Contact", run:() => copyText("+" + CONTACT.whatsapp, "Number copied")},
+    {n:"Save contact card (.vcf)", k:"Contact", run:saveContact},
     {n:"Toggle light / dark theme", k:"Action", run:() => setTheme(root.dataset.theme === "light" ? "dark" : "light")},
     {n:"Next accent colour", k:"Action", run:() => { const ks = Object.keys(ACCENTS); setAccent(ks[(ks.indexOf(accentKey) + 1) % ks.length]); }},
+    {n:"Toggle particle effects", k:"Action", run:() => { if (fxApi) fxApi.toggle(); else toast("Effects disabled by your system"); }},
     {n:"Share this site", k:"Action", run:() => shareLink(pageUrl(""), "Mckenzie GENZIE | Engineering Portfolio", "Engineering projects by Mckenzie Genzie")},
-    ...profileList().map(l => ({n:"Open " + l.label, k:"Link", run:() => window.open(l.url, "_blank", "noopener,noreferrer")})),
+    ...profileList().map(l => ({n:"Open " + l.n, k:"Link", run:() => window.open(l.url, "_blank", "noopener,noreferrer")})),
     ...PROJECTS.map(p => ({n:p.t, k:"Project", run:() => openProject(p.id, null)}))
   ];
   let shown = [], sel = 0;
@@ -693,7 +832,7 @@ function initPalette() {
   };
   const open = () => { inp.value = ""; sel = 0; draw(); pal.showModal(); lockScroll(); inp.focus(); };
   const choose = i => { const c = shown[i]; if (!c) return; pal.close(); setTimeout(c.run, 60); };
-  $("#kBtn").addEventListener("click", () => { $("#menuBtn").getAttribute("aria-expanded") === "true" && $("#menuBtn").click(); open(); });
+  $("#kBtn").addEventListener("click", () => { if ($("#menuBtn").getAttribute("aria-expanded") === "true") $("#menuBtn").click(); open(); });
   inp.addEventListener("input", () => { sel = 0; draw(); });
   inp.addEventListener("keydown", e => {
     if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(shown.length - 1, sel + 1); draw(); }
@@ -719,4 +858,4 @@ function initDeepLink() {
 
 initLoader(); initTheme(); initName(); initMedia(); initContact(); initNav(); initTyped(); initTerminal();
 initSkills(); initProjects(); initWatch(); initStats(); initDialogs(); initPalette(); initTilt();
-initReveal(); initFx(); initDeepLink();
+initMagnet(); initSpot(); initReveal(); initFx(); initDeepLink(); initClock(); initRipple(); initScramble();
