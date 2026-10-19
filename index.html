@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mckenzie GENZIE | Electrical and Communications Engineering Portfolio</title>
+<meta name="description" content="Portfolio of Mckenzie GENZIE, an Electrical and Communications Engineering student at PNG University of Technology building embedded, IoT, automation and gesture-control prototypes.">
+<meta property="og:title" content="Mckenzie GENZIE | Engineering Portfolio">
+<meta property="og:description" content="Practical engineering systems through electronics, embedded programming, automation and human-machine interaction.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#03060d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2303060d'/%3E%3Cpath d='M18 3 8 18h7l-2 11 11-16h-7z' fill='%235eeaff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="ld-bolt"></div>
+  <p class="ld-text" id="ldMsg">INITIALIZING SYSTEMS</p>
+  <div class="ld-line"><i></i></div>
+  <p class="ld-pct" id="ldPct">0%</p>
+</div>
+
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div id="bar" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<nav class="dots" id="dots" aria-label="Section dots"></nav>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top"><span class="bolt"></span>MCKENZIE<b>GENZIE</b></a>
+  <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
+  <nav id="menu" aria-label="Main">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#media">Media</a>
+    <a href="#education">Education</a>
+    <a href="#contact" class="nav-cta">Contact</a>
+    <div class="tools">
+      <button class="icon-btn" id="kBtn" aria-label="Open command palette" title="Command palette (Ctrl+K)">⌘K</button>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle light and dark theme" title="Toggle theme">◐</button>
+      <div class="swatches" id="swatches" role="group" aria-label="Accent colour"></div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<section id="top" class="hero">
+  <div class="hero-text">
+    <p class="kicker reveal"><span class="dot"></span>Electrical and Communications Engineering student</p>
+    <h1 class="reveal" id="name" aria-label="Mckenzie GENZIE" data-name="Mckenzie|GENZIE"></h1>
+    <div class="name-line reveal" aria-hidden="true"></div>
+    <p class="typed reveal"><span id="typed"></span><i class="caret"></i></p>
+    <p class="lead reveal">Building practical engineering systems through electronics, embedded programming, automation and human-machine interaction.</p>
+    <p class="muted reveal">Aspiring Automation and Controls Engineer · Papua New Guinea University of Technology, Lae.</p>
+    <div class="actions reveal">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="#contact">Contact me</a>
+      <a class="btn" id="cvBtn" hidden download>Download CV</a>
+    </div>
+    <div class="socials reveal" data-profile-links></div>
+    <p class="hint reveal">Press <kbd>Ctrl</kbd>+<kbd>K</kbd> for the command palette · <kbd>/</kbd> to search projects</p>
+  </div>
+
+  <figure class="portrait reveal" id="portraitWrap">
+    <div class="ring"></div>
+    <div class="ring r2"></div>
+    <div class="orbit" aria-hidden="true"><span>ESP32</span><span>Arduino</span><span>Python</span><span>IoT</span></div>
+    <div class="pimg" id="portrait">
+      <img id="portraitImg" alt="Portrait of Mckenzie GENZIE">
+    </div>
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <figcaption>ECE · UNITECH · LAE</figcaption>
+  </figure>
+  <a class="scroll-cue" href="#about" aria-label="Scroll down"><span></span></a>
+</section>
+
+<section class="stats">
+  <div class="stat reveal"><b data-count="0" id="sProjects">0</b><span>Projects built</span></div>
+  <div class="stat reveal"><b data-count="0" id="sCats">0</b><span>Disciplines</span></div>
+  <div class="stat reveal"><b data-count="0" id="sSkills">0</b><span>Technical interests</span></div>
+  <div class="stat reveal"><b data-count="2">0</b><span>Public showcases</span></div>
+</section>
+
+<!-- Section numbers (01, 02, 03...) are added automatically by CSS, in the order the sections appear. -->
+
+<section id="about" class="section num">
+  <p class="eyebrow reveal">About</p>
+  <h2 class="reveal">About and engineering journey</h2>
+  <div class="about-grid">
+    <div>
+      <p class="reveal">I am an Electrical and Communications Engineering student who builds, experiments, documents, tests and improves prototypes. My work moves between circuits, microcontrollers, web interfaces and gesture-based control, and every project below states what it does and where its limits are.</p>
+      <div class="pillars reveal">
+        <div class="pillar"><b>Build</b><span>Circuits, PCBs, relays, sensors and microcontrollers.</span></div>
+        <div class="pillar"><b>Connect</b><span>Web dashboards, serial links and wireless control.</span></div>
+        <div class="pillar"><b>Interact</b><span>Gesture, voice and camera based interfaces.</span></div>
+        <div class="pillar"><b>Document</b><span>Honest limits stated for every prototype.</span></div>
+      </div>
+    </div>
+    <div class="terminal reveal" aria-hidden="true">
+      <div class="t-top"><i></i><i></i><i></i><span>kenzii@unitech:~</span></div>
+      <pre id="term"></pre>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="section num">
+  <p class="eyebrow reveal">Skills</p>
+  <h2 class="reveal">Technical interests</h2>
+  <div class="marquee reveal" aria-hidden="true"><div class="track" id="track"></div></div>
+  <div class="skill-grid reveal" id="skillGrid"></div>
+</section>
+
+<section id="projects" class="section num">
+  <p class="eyebrow reveal">Projects</p>
+  <h2 class="reveal">Engineering projects</h2>
+  <p class="muted reveal">Student prototypes. Each one has a main view and three shots. Press <kbd>/</kbd> to search.</p>
+  <div class="toolbar reveal">
+    <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+    <div class="search-wrap">
+      <span class="mono" id="pCount"></span>
+      <input id="search" type="search" placeholder="Search projects..." aria-label="Search projects">
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <p class="muted empty" id="empty" hidden>No projects match your search.</p>
+</section>
+
+<section id="media" class="section num">
+  <p class="eyebrow reveal">Media</p>
+  <h2 class="reveal">Media and recognition</h2>
+  <article class="feature reveal panel">
+    <div class="f-body">
+      <p class="mono">Kalang News (FM100) · September 30, 2026 · By Florin Yapo</p>
+      <h3>From Lae Classroom to Smart Tech Dreams</h3>
+      <p class="muted">A news feature on Mckenzie's engineering projects and ambitions as a Unitech student.</p>
+      <a class="btn primary" href="https://fm100.com.pg/2026/09/30/from-lae-classroom-to-smart-tech-dreams/" target="_blank" rel="noopener noreferrer">Read the original article</a>
+    </div>
+    <div class="f-img ph" id="mediaImg" data-label="Add article image"></div>
+  </article>
+  <p class="note reveal">Demonstrations: Unitech Open Day 2026 (control panel) and TechnoFest 2026 (student ID system).</p>
+</section>
+
+<section id="education" class="section num">
+  <p class="eyebrow reveal">Education</p>
+  <h2 class="reveal">Education and credentials</h2>
+  <div class="timeline">
+    <div class="tl-item reveal"><i></i><div><h3>Bachelor of Electrical and Communications Engineering</h3><p class="muted">Papua New Guinea University of Technology, Lae</p></div></div>
+    <div class="tl-item reveal"><i></i><div><h3>TechnoFest 2026</h3><p class="muted">Presented the Smart Student ID Card System prototype</p></div></div>
+    <div class="tl-item reveal"><i></i><div><h3>Unitech Open Day 2026</h3><p class="muted">Demonstrated the AI-Integrated Electrical Control Panel</p></div></div>
+  </div>
+  <div id="cvBox"></div>
+</section>
+
+<section id="contact" class="section num contact">
+  <p class="eyebrow reveal">Contact</p>
+  <h2 class="reveal">Let's build something</h2>
+  <p class="reveal">Have a project idea, feedback or an opportunity? Email me directly.</p>
+  <div class="contact-card panel reveal">
+    <span class="cc-label">Email</span>
+    <b class="cc-email unset" id="emailText">Email address coming soon</b>
+    <div class="actions">
+      <a class="btn primary" id="emailBtn" hidden>Email me</a>
+      <button class="btn" id="copyEmail" hidden>Copy email</button>
+      <button class="btn" id="copyLink">Copy site link</button>
+    </div>
+  </div>
+  <p class="mono find-label reveal" id="findMe" hidden>Find me online</p>
+  <div class="socials reveal" data-profile-links></div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <p>Mckenzie GENZIE · Student engineering portfolio. Projects are educational prototypes, not certified products.</p>
+  <div class="socials foot-links" data-profile-links></div>
+</footer>
+
+<button id="toTop" class="to-top" aria-label="Back to top" hidden>↑</button>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dbar">
+    <span class="mono" id="dCount"></span>
+    <div class="dnav">
+      <button id="dShare" class="btn sm" aria-label="Copy link to this project">Copy link</button>
+      <button id="dPrev" class="btn sm" aria-label="Previous project">‹</button>
+      <button id="dNext" class="btn sm" aria-label="Next project">›</button>
+      <button id="dlgClose" class="btn sm" aria-label="Close case study">✕</button>
+    </div>
+  </div>
+  <div id="dlgBody"></div>
+</dialog>
+
+<dialog id="lb" aria-label="Image viewer">
+  <button id="lbClose" class="btn sm close" aria-label="Close image">✕</button>
+  <button id="lbPrev" class="btn sm lb-nav l" aria-label="Previous image">‹</button>
+  <button id="lbNext" class="btn sm lb-nav r" aria-label="Next image">›</button>
+  <div id="lbBox"></div>
+  <p class="mono lb-cap" id="lbCap"></p>
+</dialog>
+
+<dialog id="pal" aria-label="Command palette">
+  <input id="palIn" type="text" placeholder="Type a command or project name..." aria-label="Command palette search" autocomplete="off">
+  <ul id="palList" role="listbox"></ul>
+  <p class="pal-hint mono">↑ ↓ to move · Enter to select · Esc to close</p>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
