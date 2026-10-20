@@ -34,9 +34,35 @@ const FEATURED_FACEBOOK = [
 
 const SITE = {
   profilePhoto: "mckenzie-profile",
-  mediaImage: "kalang-news",
   cv: "assets/cv.pdf"
 };
+
+/* ================= NEWS AND MEDIA =================
+   Paste the links between the quotes. Leave "" for any link you don't have yet.
+   img = file name (no ending) inside assets/images/  -> e.g. assets/images/jernex-visuals.jpg
+   url = link to the original article/page, facebook = Facebook post, linkedin = LinkedIn post */
+const NEWS = [
+  {id:"kalang", img:"kalang-news", source:"Kalang News (FM100)", meta:"September 30, 2026 · By Florin Yapo",
+   title:"From Lae Classroom to Smart Tech Dreams",
+   d:"A news feature on Mckenzie's engineering projects and ambitions as a Unitech student.",
+   url:"https://fm100.com.pg/2026/09/30/from-lae-classroom-to-smart-tech-dreams/", facebook:"https://www.facebook.com/share/p/17n2i7hyRT/", linkedin:""},
+  {id:"jernex", img:"jernex-visuals", source:"JERNEX VISUALS", meta:"Local media feature",
+   title:"Featured on JERNEX VISUALS",
+   d:"A local media feature on Mckenzie Genzie and his engineering projects.",
+   url:"", facebook:"https://www.facebook.com/share/p/1HzF9Lx6Ti/", linkedin:"https://lnkd.in/p/gzAH23Ft"},
+  {id:"recruit", img:"png-recruitment-box", source:"PNG Recruitment Box", meta:"Local media feature",
+   title:"Featured on PNG Recruitment Box",
+   d:"A local media feature on Mckenzie Genzie and his engineering projects.",
+   url:"", facebook:"", linkedin:"https://lnkd.in/p/ge9d5J3q"},
+  {id:"painim", img:"painim-wok-png", source:"Painim Wok PNG", meta:"Local media feature",
+   title:"Featured on Painim Wok PNG",
+   d:"A local media feature on Mckenzie Genzie and his engineering projects.",
+   url:"", facebook:"https://www.facebook.com/share/v/19xXj7DZqt/", linkedin:""},
+  {id:"hot97", img:"hot97fm", source:"Hot97FM", meta:"Local media feature",
+   title:"Featured on Hot97FM",
+   d:"A local media feature on Mckenzie Genzie and his engineering projects.",
+   url:"", facebook:"https://www.facebook.com/share/p/1KbxwRapNF/", linkedin:""}
+];
 
 const IMGDIR = "assets/images/";
 const EXTS = ["jpeg", "jpg", "png", "webp"];
@@ -49,7 +75,7 @@ const BOOT = ["INITIALIZING SYSTEMS","LOADING MODULES","CALIBRATING SENSORS","SY
 const PLATFORMS = {
   whatsapp: {n:"WhatsApp", i:"i-wa", c:"37,211,102"},
   email: {n:"Email", i:"i-mail", c:"94,234,255"},
-  tiktok: {n:"TikTok", i:"i-tt", c:"255,90,170"},
+  tiktok: {n:"TikTok", i:"i-tt", c:"255,44,85"},
   linkedin: {n:"LinkedIn", i:"i-li", c:"70,150,255"},
   facebook: {n:"Facebook", i:"i-fb", c:"24,119,242"},
   youtube: {n:"YouTube", i:"i-yt", c:"255,59,59"},
@@ -172,7 +198,7 @@ const PROJECTS = [
    l:"Educational work. No working transmitter, legal authorization or measured frequency stability is claimed."},
 
   {id:"terminal",...PIC("hacker-terminal"),t:"Hacker-Style Terminal Control (ESP32)",c:"IoT",s:"Working prototype",
-    tiktok: "https://www.tt.site/t/ZSgBv8HyS/", linkedin: "https://lnkd.in/p/gzYUyJVX", 
+   tiktok:"https://www.tt.site/t/ZSgBv8HyS/",linkedin:"https://lnkd.in/p/gzYUyJVX",
    d:"A fake hacker-style terminal built in HTML and connected to an ESP32. Instead of plain ON/OFF buttons, custom terminal commands control a real light remotely. Type the command, the ESP32 receives the signal, and the light turns ON or OFF.",
    why:"Makes a normal ON/OFF control more engaging while practising HMI concepts, wireless communication and relay control.",
    hw:["ESP32","Relay module","Light"],
@@ -180,7 +206,7 @@ const PROJECTS = [
    f:["Custom terminal commands replace ON/OFF buttons","ESP32 receives the command wirelessly","Relay switches a real light ON and OFF"],
    l:"A student prototype with a themed interface. It is not real hacking and no security features are claimed. Any mains-voltage load needs a properly insulated, enclosed relay. Not a certified product."},
   {id:"arm",...PIC("robotic-arm"),t:"Single-Joystick Robotic Arm Controller",c:"Automation",s:"In development. Simulation and hardware integration planned.",
-    tiktok: "https://www.tt.site/t/ZSgBcpyjv/", linkedin:"https://lnkd.in/p/gYPNu5ki",  
+   tiktok:"https://www.tt.site/t/ZSgBcpyjv/",linkedin:"https://lnkd.in/p/gYPNu5ki",
    d:"A robotic arm control system that combines an Arduino Uno R3, joystick control and a 3D web interface built with HTML, CSS and JavaScript. The goal is to control different arm joints with one joystick while watching the movement in a real-time 3D simulation.",
    why:"Explores how embedded systems, web development and robotics can work together to create smarter control systems.",
    hw:["Arduino Uno R3","Joystick"],
@@ -189,7 +215,7 @@ const PROJECTS = [
    f:["Single-joystick multi-joint control","Interactive 3D robotic arm simulation","Arduino hardware integration","Real-time control dashboard","Future physical robotic arm implementation"],
    l:"Work in progress. The features listed are goals and not completed results, and a physical robotic arm has not been built yet."},
   {id:"pacman",...PIC("pacman-hardware"),t:"KENZII'S PAC-MAN: Hardware-Controlled Game",c:"Embedded",s:"Working prototype",
-  tiktok: "https://www.tt.site/t/ZSgBcv5W3/", linkedin: "https://lnkd.in/p/gsXZMn_m", 
+   tiktok:"https://www.tt.site/t/ZSgBcv5W3/",linkedin:"https://lnkd.in/p/gsXZMn_m",
    d:"A web-based Pac-Man game that bridges software and physical hardware electronics using HTML, CSS, JavaScript and an Arduino Uno R3. The Arduino talks to the web browser over USB Serial.",
    why:"Connects physical electronics with responsive, interactive gameplay.",
    hw:["Arduino Uno R3","Hardware joystick","Potentiometer","Buzzer","Red LED","Green LED"],
@@ -217,9 +243,12 @@ function cleanUrl(u) {
   try { return new URL(u).href; } catch (e) { return ""; }
 }
 PROJECTS.forEach(p => { ["tiktok", "linkedin", "facebook", "news"].forEach(k => { p[k] = cleanUrl(p[k]); }); });
+NEWS.forEach(n => { ["url", "facebook", "linkedin"].forEach(k => { n[k] = cleanUrl(n[k]); }); });
 
 const waLink = msg => "https://wa.me/" + CONTACT.whatsapp + (msg ? "?text=" + encodeURIComponent(msg) : "");
-const pageUrl = h => location.origin + location.pathname + (h || "");
+const pageUrl = h => /^https?:$/.test(location.protocol)
+  ? location.origin + location.pathname + (h || "")
+  : location.href.split("#")[0] + (h || "");
 const emailOk = () => {
   const e = String(CONTACT.email || "").trim();
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? e : "";
@@ -291,7 +320,25 @@ const linkCount = () => watchItems().reduce((n, i) => n + KEYS.filter(k => i[k])
 /* ---------- PDF engine (no libraries, works offline) ---------- */
 const PDF_ACC = [0.04, 0.5, 0.65], PDF_DARK = [0.07, 0.1, 0.15], PDF_GREY = [0.4, 0.45, 0.5], PDF_BLUE = [0.1, 0.35, 0.8];
 
-function buildPdf(items, footer) {
+/* Reads the portrait already on the page and returns JPEG bytes (null if it can't, e.g. file:// or no image). */
+function getPortraitJpeg() {
+  try {
+    const im = $("#portraitImg");
+    if (!im || !im.complete || !im.naturalWidth) return null;
+    const S = 360, c = document.createElement("canvas");
+    c.width = c.height = S;
+    const g = c.getContext("2d");
+    const s = Math.min(im.naturalWidth, im.naturalHeight);
+    g.fillStyle = "#fff"; g.fillRect(0, 0, S, S);
+    g.drawImage(im, (im.naturalWidth - s) / 2, (im.naturalHeight - s) / 2, s, s, 0, 0, S, S);
+    const bin = atob(c.toDataURL("image/jpeg", 0.88).split(",")[1]);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return {bytes, w:S, h:S};
+  } catch (e) { return null; }
+}
+
+function buildPdf(items, footer, photoData) {
   const W = 595, H = 842, M = 50, TW = W - 2 * M;
   const clean = s => String(s == null ? "" : s)
     .replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"')
@@ -315,9 +362,10 @@ function buildPdf(items, footer) {
   };
   items.forEach(it => {
     if (!it) return;
+    if (it.sp) { y -= it.sp; return; }
     if (it.rule) { ensure(16); y -= 8; pg().ops.push(`0.8 0.82 0.85 rg ${M} ${y.toFixed(1)} ${TW} 0.8 re f`); y -= 8; return; }
     const size = it.s || 10.5, lh = size * 1.45, cw = size * (it.b ? 0.58 : 0.54), x = M + (it.x || 0);
-    const max = Math.max(10, Math.floor((TW - (it.x || 0)) / cw));
+    const max = Math.max(10, Math.floor((TW - (it.x || 0) - (it.r || 0)) / cw));
     const col = (it.link ? PDF_BLUE : (it.c || PDF_DARK)).join(" ");
     y -= it.gap || 0;
     wrap(clean(it.t), max).forEach(l => {
@@ -326,9 +374,28 @@ function buildPdf(items, footer) {
       if (it.link) pg().links.push({x, y:y - 2, w:Math.min(TW, l.length * cw), h:size + 3, url:clean(it.link)});
     });
   });
+
+  /* round photo, top right of page 1 */
+  const circ = (cx, cy, r) => {
+    const k = r * 0.5523, f = n => n.toFixed(1);
+    return `${f(cx + r)} ${f(cy)} m ${f(cx + r)} ${f(cy + k)} ${f(cx + k)} ${f(cy + r)} ${f(cx)} ${f(cy + r)} c ` +
+           `${f(cx - k)} ${f(cy + r)} ${f(cx - r)} ${f(cy + k)} ${f(cx - r)} ${f(cy)} c ` +
+           `${f(cx - r)} ${f(cy - k)} ${f(cx - k)} ${f(cy - r)} ${f(cx)} ${f(cy - r)} c ` +
+           `${f(cx + k)} ${f(cy - r)} ${f(cx + r)} ${f(cy - k)} ${f(cx + r)} ${f(cy)} c`;
+  };
+  if (photoData) {
+    const r = 42, cx = W - M - r, cy = H - M - r;
+    pages[0].ops.unshift(
+      `q ${circ(cx, cy, r)} W n ${2 * r} 0 0 ${2 * r} ${cx - r} ${cy - r} cm /Im1 Do Q`,
+      `q 0.04 0.5 0.65 RG 2 w ${circ(cx, cy, r)} S Q`
+    );
+  }
+
   const objs = [null, null,
     "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
     "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"];
+  if (photoData) objs.push({img:photoData});
+  const xo = photoData ? " /XObject << /Im1 5 0 R >>" : "";
   const pageNums = [];
   pages.forEach((p, i) => {
     p.ops.push(`BT /F1 8 Tf 0.5 0.55 0.6 rg ${M} 28 Td (${pesc(clean(footer))} - Page ${i + 1} of ${pages.length}) Tj ET`);
@@ -339,17 +406,30 @@ function buildPdf(items, footer) {
       objs.push(`<< /Type /Annot /Subtype /Link /Rect [${l.x.toFixed(1)} ${l.y.toFixed(1)} ${(l.x + l.w).toFixed(1)} ${(l.y + l.h).toFixed(1)}] /Border [0 0 0] /A << /S /URI /URI (${pesc(l.url)}) >> >>`);
       annots.push(objs.length + " 0 R");
     });
-    objs.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${cNum} 0 R /Annots [${annots.join(" ")}] >>`);
+    objs.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >>${xo} >> /Contents ${cNum} 0 R /Annots [${annots.join(" ")}] >>`);
     pageNums.push(objs.length);
   });
   objs[0] = "<< /Type /Catalog /Pages 2 0 R >>";
   objs[1] = `<< /Type /Pages /Kids [${pageNums.map(n => n + " 0 R").join(" ")}] /Count ${pageNums.length} >>`;
-  let out = "%PDF-1.4\n"; const offs = [];
-  objs.forEach((o, i) => { offs.push(out.length); out += `${i + 1} 0 obj\n${o}\nendobj\n`; });
-  const xref = out.length;
-  out += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` + offs.map(o => String(o).padStart(10, "0") + " 00000 n \n").join("");
-  out += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
-  return new Blob([out], {type:"application/pdf"});
+
+  /* binary-safe assembly */
+  const enc = s => { const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i) & 255; return u; };
+  const chunks = []; let off = 0;
+  const push = u => { chunks.push(u); off += u.length; };
+  const offs = [];
+  push(enc("%PDF-1.4\n"));
+  objs.forEach((o, i) => {
+    offs.push(off);
+    if (o && o.img) {
+      push(enc(`${i + 1} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${o.img.w} /Height ${o.img.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${o.img.bytes.length} >>\nstream\n`));
+      push(o.img.bytes);
+      push(enc("\nendstream\nendobj\n"));
+    } else push(enc(`${i + 1} 0 obj\n${o}\nendobj\n`));
+  });
+  const xref = off;
+  push(enc(`xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` + offs.map(o => String(o).padStart(10, "0") + " 00000 n \n").join("")));
+  push(enc(`trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`));
+  return new Blob(chunks, {type:"application/pdf"});
 }
 
 function downloadBlob(blob, name) {
@@ -364,9 +444,10 @@ function downloadBlob(blob, name) {
 function saveContact() {
   const e = emailOk(), site = pageUrl("");
   const items = [
-    {t:"Mckenzie Genzie", s:26, b:1, c:PDF_ACC},
-    {t:"Electrical and Communications Engineering Student", s:13, gap:4},
-    {t:"Papua New Guinea University of Technology, Lae", s:11, c:PDF_GREY},
+    {t:"Mckenzie Genzie", s:26, b:1, c:PDF_ACC, r:100},
+    {t:"Electrical and Communications Engineering Student", s:13, gap:4, r:100},
+    {t:"Papua New Guinea University of Technology, Lae", s:11, c:PDF_GREY, r:100},
+    {sp:12},
     {rule:1},
     {t:"CONTACT", s:10, b:1, c:PDF_ACC, gap:6},
     {t:"WhatsApp / phone: " + CONTACT.whatsappLabel, s:12, gap:6},
@@ -378,7 +459,7 @@ function saveContact() {
   profileList().forEach(p => items.push({t:p.n + ": " + p.url, s:10.5, link:p.url, gap:6}));
   if (/^https?:/i.test(site)) items.push({t:"Portfolio website: " + site, s:10.5, link:site, gap:10});
   items.push({rule:1}, {t:"Student engineering portfolio. Projects are educational prototypes, not certified products.", s:9, c:PDF_GREY, gap:4});
-  downloadBlob(buildPdf(items, "Mckenzie Genzie - Contact"), "Mckenzie-Genzie-Contact.pdf");
+  downloadBlob(buildPdf(items, "Mckenzie Genzie - Contact", getPortraitJpeg()), "Mckenzie-Genzie-Contact.pdf");
   toast("Contact PDF downloaded");
 }
 
@@ -387,9 +468,10 @@ function savePortfolio() {
   toast("Preparing portfolio PDF...");
   const e = emailOk(), site = pageUrl("");
   const items = [
-    {t:"Mckenzie Genzie", s:28, b:1, c:PDF_ACC},
-    {t:"Electrical and Communications Engineering Portfolio", s:13, gap:4},
-    {t:"Papua New Guinea University of Technology, Lae", s:11, c:PDF_GREY},
+    {t:"Mckenzie Genzie", s:28, b:1, c:PDF_ACC, r:100},
+    {t:"Electrical and Communications Engineering Portfolio", s:13, gap:4, r:100},
+    {t:"Papua New Guinea University of Technology, Lae", s:11, c:PDF_GREY, r:100},
+    {sp:12},
     {rule:1},
     {t:"WhatsApp: " + CONTACT.whatsappLabel + (e ? "   |   Email: " + e : ""), s:10.5, gap:2}
   ];
@@ -421,8 +503,18 @@ function savePortfolio() {
   PROJECTS.forEach((p, i) => { if (p.top) items.push(...projItems(p, i + 1)); });
   items.push({rule:1}, {t:"MORE PROJECTS", s:12, b:1, c:PDF_ACC, gap:4});
   PROJECTS.forEach((p, i) => { if (!p.top) items.push(...projItems(p, i + 1)); });
+
+  items.push({rule:1}, {t:"MEDIA AND RECOGNITION", s:12, b:1, c:PDF_ACC, gap:4});
+  NEWS.forEach(n => {
+    items.push({t:n.source + " - " + n.title, s:11, b:1, gap:10});
+    if (n.meta) items.push({t:n.meta, s:9.5, c:PDF_GREY});
+    if (n.url) items.push({t:"Article: " + n.url, s:9.5, link:n.url, gap:2});
+    if (n.facebook) items.push({t:"Facebook: " + n.facebook, s:9.5, link:n.facebook, gap:2});
+    if (n.linkedin) items.push({t:"LinkedIn: " + n.linkedin, s:9.5, link:n.linkedin, gap:2});
+  });
+
   items.push({rule:1}, {t:"Student engineering portfolio. Projects are educational prototypes, not certified products.", s:9, c:PDF_GREY, gap:4});
-  downloadBlob(buildPdf(items, "Mckenzie Genzie - Engineering Portfolio"), "Mckenzie-Genzie-Portfolio.pdf");
+  downloadBlob(buildPdf(items, "Mckenzie Genzie - Engineering Portfolio", getPortraitJpeg()), "Mckenzie-Genzie-Portfolio.pdf");
   toast("Portfolio PDF downloaded");
 }
 
@@ -554,10 +646,26 @@ function initMedia() {
   pi.dataset.c = pc.join("|"); pi.dataset.i = 0;
   pi.onerror = () => imgFail(pi);
   pi.src = pc[0];
+}
 
-  const mi = $("#mediaImg"), mc = cands(SITE.mediaImage);
-  mi.dataset.label = "Add " + mc[0];
-  mi.innerHTML = `<img src="${esc(mc[0])}" alt="Kalang News feature" loading="lazy" decoding="async" data-c="${esc(mc.join("|"))}" data-i="0" onerror="imgFail(this)">`;
+/* ---------- news and media cards ---------- */
+function initNews() {
+  const box = $("#newsGrid");
+  if (!box) return;
+  box.innerHTML = NEWS.map(n => {
+    const btns = [];
+    if (n.url) btns.push(`<a class="btn sm primary" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${icon("i-arrow")}Read article</a>`);
+    if (n.linkedin) btns.push(`<a class="btn sm li" href="${esc(n.linkedin)}" target="_blank" rel="noopener noreferrer">${icon("i-li")}LinkedIn</a>`);
+    if (n.facebook) btns.push(`<a class="btn sm fb" href="${esc(n.facebook)}" target="_blank" rel="noopener noreferrer">${icon("i-fb")}Facebook</a>`);
+    return `<article class="ncard reveal">
+      ${photo(cands(n.img), n.source)}
+      <span class="tag n-src">${esc(n.source)}</span>
+      <h3>${esc(n.title)}</h3>
+      ${n.meta ? `<p class="mono">${esc(n.meta)}</p>` : ""}
+      <p class="muted">${esc(n.d)}</p>
+      <div class="n-links">${btns.length ? btns.join("") : '<span class="muted soon">Links coming soon</span>'}</div>
+    </article>`;
+  }).join("");
 }
 
 function initName() {
@@ -986,5 +1094,5 @@ function initDeepLink() {
 }
 
 initLoader(); initTheme(); initName(); initMedia(); initContact(); initNav(); initTyped(); initTerminal();
-initSkills(); initProjects(); initStats(); initDialogs(); initPalette(); initTilt();
+initSkills(); initProjects(); initNews(); initStats(); initDialogs(); initPalette(); initTilt();
 initMagnet(); initSpot(); initReveal(); initFx(); initDeepLink(); initClock(); initRipple(); initScramble();
