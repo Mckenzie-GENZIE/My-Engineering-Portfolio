@@ -60,6 +60,8 @@ const KEYS = ["tiktok", "linkedin", "facebook"];
 const CLS = {tiktok:"tt", linkedin:"li", facebook:"fb"};
 const DEFAULT_MSG = "Hi Mckenzie, I found your engineering portfolio and I would like to talk.";
 
+const ABOUT_TEXT = "I am an Electrical and Communications Engineering student who builds, experiments, documents, tests and improves prototypes. My work moves between circuits, microcontrollers, web interfaces and gesture-based control, and every project states what it does and where its limits are.";
+
 const GROUPS = [
   {n:"Embedded and IoT", i:["Embedded systems","Internet of Things","Arduino, ESP32, ESP8266","Energy monitoring"]},
   {n:"Automation and control", i:["Industrial automation and control","Human-machine interfaces","Robotics and smart systems","Electrical and power engineering"]},
@@ -82,8 +84,30 @@ const TERM_LINES = [
 
 const PIC = (main, sb = main) => ({pic: main, sb});
 
+/* The first 3 projects (top:true) are the Top 3 and are shown separately above the rest. */
 const PROJECTS = [
-  {id:"ultra",...PIC("jarvis-ultra"),feat:true,t:"KENZII JARVIS-ULTRA: The Holographic Control Panel",c:"Automation",s:"Simulation-mode prototype",
+  {id:"panel",...PIC("control-panel"),top:true,t:"AI-Integrated Electrical Control Panel",c:"Automation",s:"Documented prototype. Demonstrated at Unitech Open Day 2026.",
+   tiktok:"https://www.tt.site/t/ZSghMtRYF/",linkedin:"https://www.linkedin.com/posts/mckenzie-genzie-017250370_ai-integrated-electrical-control-panel-im-activity-7490369172602908673-nLg1",
+   d:"An ESP32-based electrical control and smart-home prototype with a web interface.",
+   hw:["ESP32","Relays","Lighting, fan and outlet loads"],sw:["Web interface","Voice and text assistant (English, Tok Pisin)","Camera hand-gesture interaction"],
+   f:["Individual and master lighting control","Three-speed fan control","General outlet control","Virtual main breaker interface","Energy-monitoring displays and graphs","Login and access control","Scheduling, activity logs, remote access","Diagnostics and report export"],
+   l:"Features are as described in the public project post. No measurement accuracy, ratings or security certification is claimed. The virtual breaker is a software interface and not a protective device."},
+  {id:"jarvis",...PIC("jarvis-interface","jarvis"),top:true,t:"Kenzii Jarvis: 3D Hand Gesture Interface",c:"Automation",s:"Experimental prototype",
+   tiktok:"https://www.tt.site/t/ZSghMAoQY/",linkedin:"https://lnkd.in/p/gRP6_dwj",
+   d:"A webcam hand-tracking HUD that recognises gestures and can drive a computer interface and Arduino outputs.",
+   hw:["Webcam","Arduino"],sw:["Hand tracking","Face and voice modules","Web Serial / Python serial link"],
+   f:["Live hand tracking overlay","Gesture-to-command mapping","Serial commands to Arduino"],
+   l:"Experimental human-machine interface. Gesture control is not safety-rated and never replaces protective devices or emergency stops."},
+  {id:"bin",...PIC("smart-bin"),top:true,t:"Smart Waste Management System (Touchless Smart Bin)",c:"Automation",s:"Working prototype",
+   tiktok:"https://www.tt.site/t/ZSghB1Rnj/",linkedin:"https://lnkd.in/p/g8Qyupav",
+   d:"A touchless rubbish bin that opens and closes without physical contact. By day it uses computer vision and hand gestures. At night an ultrasonic sensor detects a person and opens the lid.",
+   why:"Improves hygiene and reduces the spread of germs in public places such as hospitals, schools, airports and markets.",
+   hw:["Ultrasonic sensor","Camera","12V DC linear actuator","240V light bulb","Arduino"],
+   sw:["Python and OpenCV","Hand gesture recognition"],
+   f:["Daytime: hand gestures control the lid","Night: ultrasonic sensor detects a person and opens the lid","240V bulb switches on for visibility and off when the person leaves"],
+   l:"A student prototype. The 240V bulb is mains voltage and needs proper insulation and an enclosed, isolated relay. Not a certified product."},
+
+  {id:"ultra",...PIC("jarvis-ultra"),t:"KENZII JARVIS-ULTRA: The Holographic Control Panel",c:"Automation",s:"Simulation-mode prototype",
    tiktok:"https://www.tt.site/t/ZSghMvV4U/",linkedin:"https://lnkd.in/p/gEBn8HDE",
    d:"A holographic-style control panel that runs in a normal web browser. Control machines with hand gestures or voice using just a laptop and a webcam.",
    why:"Built for PNG: low-cost, hands-free control for remote sites such as mines, farms and water plants, plus a simulation where new operators can train safely before touching real machines.",
@@ -91,18 +115,6 @@ const PROJECTS = [
    sw:["Hand gesture tracking","Voice commands","Live 3D models: robot arm, drone, reactor, globe","Web control panel"],
    f:["Pinch, zoom and rotate with hand gestures","Voice commands such as \u201cJarvis, turn on the pump\u201d","Controls for lights, fans, motors, pumps and relays","Live sensor readouts: temperature, distance, voltage (simulated for now)"],
    l:"Runs in simulation mode today. Connecting real hardware (Arduino, ESP32, Raspberry Pi) is the next step. Not safety-rated and never a replacement for protective devices or emergency stops."},
-  {id:"jarvis",...PIC("jarvis-interface","jarvis"),t:"Kenzii Jarvis: 3D Hand Gesture Interface",c:"Automation",s:"Experimental prototype",
-   tiktok:"https://www.tt.site/t/ZSghMAoQY/",linkedin:"https://lnkd.in/p/gRP6_dwj",
-   d:"A webcam hand-tracking HUD that recognises gestures and can drive a computer interface and Arduino outputs.",
-   hw:["Webcam","Arduino"],sw:["Hand tracking","Face and voice modules","Web Serial / Python serial link"],
-   f:["Live hand tracking overlay","Gesture-to-command mapping","Serial commands to Arduino"],
-   l:"Experimental human-machine interface. Gesture control is not safety-rated and never replaces protective devices or emergency stops."},
-  {id:"panel",...PIC("control-panel"),t:"AI-Integrated Electrical Control Panel",c:"Automation",s:"Documented prototype. Demonstrated at Unitech Open Day 2026.",
-   tiktok:"https://www.tt.site/t/ZSghMtRYF/",linkedin:"https://www.linkedin.com/posts/mckenzie-genzie-017250370_ai-integrated-electrical-control-panel-im-activity-7490369172602908673-nLg1",
-   d:"An ESP32-based electrical control and smart-home prototype with a web interface.",
-   hw:["ESP32","Relays","Lighting, fan and outlet loads"],sw:["Web interface","Voice and text assistant (English, Tok Pisin)","Camera hand-gesture interaction"],
-   f:["Individual and master lighting control","Three-speed fan control","General outlet control","Virtual main breaker interface","Energy-monitoring displays and graphs","Login and access control","Scheduling, activity logs, remote access","Diagnostics and report export"],
-   l:"Features are as described in the public project post. No measurement accuracy, ratings or security certification is claimed. The virtual breaker is a software interface and not a protective device."},
   {id:"home",...PIC("smart-home"),t:"IoT Smart Home Automation",c:"IoT",s:"Working prototype",
    tiktok:"https://www.tt.site/t/ZSghBMPp6/",linkedin:"https://lnkd.in/p/guThTYQ2",
    d:"Remote control of lighting and a fan through relays and a web interface on an ESP32.",
@@ -158,14 +170,32 @@ const PROJECTS = [
    tiktok:"https://www.tt.site/t/ZSghkSAvU/",linkedin:"https://lnkd.in/p/gvJ2cNfZ",
    d:"Study notes on a two-transistor RF oscillator and how audio relates to radio-frequency transmission.",hw:[],sw:[],f:["Circuit analysis and explanation"],
    l:"Educational work. No working transmitter, legal authorization or measured frequency stability is claimed."},
-  {id:"bin",...PIC("smart-bin"),t:"Smart Waste Management System (Touchless Smart Bin)",c:"Automation",s:"Working prototype",
-   tiktok:"https://www.tt.site/t/ZSghB1Rnj/",linkedin:"https://lnkd.in/p/g8Qyupav",
-   d:"A touchless rubbish bin that opens and closes without physical contact. By day it uses computer vision and hand gestures. At night an ultrasonic sensor detects a person and opens the lid.",
-   why:"Improves hygiene and reduces the spread of germs in public places such as hospitals, schools, airports and markets.",
-   hw:["Ultrasonic sensor","Camera","12V DC linear actuator","240V light bulb","Arduino"],
-   sw:["Python and OpenCV","Hand gesture recognition"],
-   f:["Daytime: hand gestures control the lid","Night: ultrasonic sensor detects a person and opens the lid","240V bulb switches on for visibility and off when the person leaves"],
-   l:"A student prototype. The 240V bulb is mains voltage and needs proper insulation and an enclosed, isolated relay. Not a certified product."}
+
+  {id:"terminal",...PIC("hacker-terminal"),t:"Hacker-Style Terminal Control (ESP32)",c:"IoT",s:"Working prototype",
+    tiktok: "https://www.tt.site/t/ZSgBv8HyS/", linkedin: "https://lnkd.in/p/gzYUyJVX", 
+   d:"A fake hacker-style terminal built in HTML and connected to an ESP32. Instead of plain ON/OFF buttons, custom terminal commands control a real light remotely. Type the command, the ESP32 receives the signal, and the light turns ON or OFF.",
+   why:"Makes a normal ON/OFF control more engaging while practising HMI concepts, wireless communication and relay control.",
+   hw:["ESP32","Relay module","Light"],
+   sw:["HTML and JavaScript terminal interface","Custom terminal commands","Wireless communication"],
+   f:["Custom terminal commands replace ON/OFF buttons","ESP32 receives the command wirelessly","Relay switches a real light ON and OFF"],
+   l:"A student prototype with a themed interface. It is not real hacking and no security features are claimed. Any mains-voltage load needs a properly insulated, enclosed relay. Not a certified product."},
+  {id:"arm",...PIC("robotic-arm"),t:"Single-Joystick Robotic Arm Controller",c:"Automation",s:"In development. Simulation and hardware integration planned.",
+    tiktok: "https://www.tt.site/t/ZSgBcpyjv/", linkedin:"https://lnkd.in/p/gYPNu5ki",  
+   d:"A robotic arm control system that combines an Arduino Uno R3, joystick control and a 3D web interface built with HTML, CSS and JavaScript. The goal is to control different arm joints with one joystick while watching the movement in a real-time 3D simulation.",
+   why:"Explores how embedded systems, web development and robotics can work together to create smarter control systems.",
+   hw:["Arduino Uno R3","Joystick"],
+   sw:["HTML, CSS and JavaScript","Interactive 3D robotic arm simulation","Real-time control dashboard"],
+   fh:"Planned features",
+   f:["Single-joystick multi-joint control","Interactive 3D robotic arm simulation","Arduino hardware integration","Real-time control dashboard","Future physical robotic arm implementation"],
+   l:"Work in progress. The features listed are goals and not completed results, and a physical robotic arm has not been built yet."},
+  {id:"pacman",...PIC("pacman-hardware"),t:"KENZII'S PAC-MAN: Hardware-Controlled Game",c:"Embedded",s:"Working prototype",
+  tiktok: "https://www.tt.site/t/ZSgBcv5W3/", linkedin: "https://lnkd.in/p/gsXZMn_m", 
+   d:"A web-based Pac-Man game that bridges software and physical hardware electronics using HTML, CSS, JavaScript and an Arduino Uno R3. The Arduino talks to the web browser over USB Serial.",
+   why:"Connects physical electronics with responsive, interactive gameplay.",
+   hw:["Arduino Uno R3","Hardware joystick","Potentiometer","Buzzer","Red LED","Green LED"],
+   sw:["HTML, CSS and JavaScript","USB Serial link to the browser"],
+   f:["Navigate Pac-Man with a real hardware joystick","Adjust game speed with a physical potentiometer or the web dashboard","Buzzer delivers classic arcade-style sound effects","Green LED = Game is ON","Red LED = Game Over"],
+   l:"A student prototype and learning project. It is a fan-made, non-commercial game and is not affiliated with or endorsed by the owners of Pac-Man."}
 ];
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -258,26 +288,142 @@ function watchItems() {
 }
 const linkCount = () => watchItems().reduce((n, i) => n + KEYS.filter(k => i[k]).length, 0);
 
-/* ---------- save contact as .vcf ---------- */
-function saveContact() {
-  const e = emailOk();
-  const lines = [
-    "BEGIN:VCARD", "VERSION:3.0",
-    "FN:Mckenzie Genzie", "N:Genzie;Mckenzie;;;",
-    "TITLE:Electrical and Communications Engineering Student",
-    "ORG:Papua New Guinea University of Technology",
-    "TEL;TYPE=CELL:+" + CONTACT.whatsapp
-  ];
-  if (e) lines.push("EMAIL;TYPE=INTERNET:" + e);
-  profileList().forEach(p => lines.push("URL:" + p.url));
-  lines.push("ADR;TYPE=WORK:;;Lae;Morobe;;;Papua New Guinea", "NOTE:Engineering portfolio - " + pageUrl(""), "END:VCARD");
-  const blob = new Blob([lines.join("\r\n")], {type:"text/vcard;charset=utf-8"});
+/* ---------- PDF engine (no libraries, works offline) ---------- */
+const PDF_ACC = [0.04, 0.5, 0.65], PDF_DARK = [0.07, 0.1, 0.15], PDF_GREY = [0.4, 0.45, 0.5], PDF_BLUE = [0.1, 0.35, 0.8];
+
+function buildPdf(items, footer) {
+  const W = 595, H = 842, M = 50, TW = W - 2 * M;
+  const clean = s => String(s == null ? "" : s)
+    .replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"')
+    .replace(/[\u2013\u2014]/g, "-").replace(/\u2192/g, "->").replace(/[\u00b7\u2022]/g, "-")
+    .replace(/[^\x20-\x7e]/g, "");
+  const pesc = s => s.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+  const pages = [{ops:[], links:[]}];
+  let y = H - M;
+  const pg = () => pages[pages.length - 1];
+  const ensure = h => { if (y - h < M + 14) { pages.push({ops:[], links:[]}); y = H - M; } };
+  const wrap = (t, max) => {
+    const out = []; let line = "";
+    t.split(/\s+/).forEach(w => {
+      while (w.length > max) { if (line) { out.push(line); line = ""; } out.push(w.slice(0, max)); w = w.slice(max); }
+      if (!w) return;
+      const tryL = line ? line + " " + w : w;
+      if (tryL.length > max) { out.push(line); line = w; } else line = tryL;
+    });
+    if (line) out.push(line);
+    return out.length ? out : [""];
+  };
+  items.forEach(it => {
+    if (!it) return;
+    if (it.rule) { ensure(16); y -= 8; pg().ops.push(`0.8 0.82 0.85 rg ${M} ${y.toFixed(1)} ${TW} 0.8 re f`); y -= 8; return; }
+    const size = it.s || 10.5, lh = size * 1.45, cw = size * (it.b ? 0.58 : 0.54), x = M + (it.x || 0);
+    const max = Math.max(10, Math.floor((TW - (it.x || 0)) / cw));
+    const col = (it.link ? PDF_BLUE : (it.c || PDF_DARK)).join(" ");
+    y -= it.gap || 0;
+    wrap(clean(it.t), max).forEach(l => {
+      ensure(lh); y -= lh;
+      pg().ops.push(`BT /${it.b ? "F2" : "F1"} ${size} Tf ${col} rg ${x} ${y.toFixed(1)} Td (${pesc(l)}) Tj ET`);
+      if (it.link) pg().links.push({x, y:y - 2, w:Math.min(TW, l.length * cw), h:size + 3, url:clean(it.link)});
+    });
+  });
+  const objs = [null, null,
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"];
+  const pageNums = [];
+  pages.forEach((p, i) => {
+    p.ops.push(`BT /F1 8 Tf 0.5 0.55 0.6 rg ${M} 28 Td (${pesc(clean(footer))} - Page ${i + 1} of ${pages.length}) Tj ET`);
+    const stream = p.ops.join("\n");
+    objs.push(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
+    const cNum = objs.length, annots = [];
+    p.links.forEach(l => {
+      objs.push(`<< /Type /Annot /Subtype /Link /Rect [${l.x.toFixed(1)} ${l.y.toFixed(1)} ${(l.x + l.w).toFixed(1)} ${(l.y + l.h).toFixed(1)}] /Border [0 0 0] /A << /S /URI /URI (${pesc(l.url)}) >> >>`);
+      annots.push(objs.length + " 0 R");
+    });
+    objs.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${W} ${H}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${cNum} 0 R /Annots [${annots.join(" ")}] >>`);
+    pageNums.push(objs.length);
+  });
+  objs[0] = "<< /Type /Catalog /Pages 2 0 R >>";
+  objs[1] = `<< /Type /Pages /Kids [${pageNums.map(n => n + " 0 R").join(" ")}] /Count ${pageNums.length} >>`;
+  let out = "%PDF-1.4\n"; const offs = [];
+  objs.forEach((o, i) => { offs.push(out.length); out += `${i + 1} 0 obj\n${o}\nendobj\n`; });
+  const xref = out.length;
+  out += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` + offs.map(o => String(o).padStart(10, "0") + " 00000 n \n").join("");
+  out += `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+  return new Blob([out], {type:"application/pdf"});
+}
+
+function downloadBlob(blob, name) {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "Mckenzie-Genzie.vcf";
+  a.download = name;
   document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-  toast("Contact card downloaded");
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
+
+/* ---------- Save contact as PDF ---------- */
+function saveContact() {
+  const e = emailOk(), site = pageUrl("");
+  const items = [
+    {t:"Mckenzie Genzie", s:26, b:1, c:PDF_ACC},
+    {t:"Electrical and Communications Engineering Student", s:13, gap:4},
+    {t:"Papua New Guinea University of Technology, Lae", s:11, c:PDF_GREY},
+    {rule:1},
+    {t:"CONTACT", s:10, b:1, c:PDF_ACC, gap:6},
+    {t:"WhatsApp / phone: " + CONTACT.whatsappLabel, s:12, gap:6},
+    {t:"Chat on WhatsApp: " + waLink(""), s:10.5, link:waLink(""), gap:2}
+  ];
+  if (e) items.push({t:"Email: " + e, s:12, link:"mailto:" + e, gap:8});
+  items.push({t:"Location: Lae, Morobe, Papua New Guinea", s:12, gap:8});
+  if (profileList().length) items.push({t:"ONLINE", s:10, b:1, c:PDF_ACC, gap:16});
+  profileList().forEach(p => items.push({t:p.n + ": " + p.url, s:10.5, link:p.url, gap:6}));
+  if (/^https?:/i.test(site)) items.push({t:"Portfolio website: " + site, s:10.5, link:site, gap:10});
+  items.push({rule:1}, {t:"Student engineering portfolio. Projects are educational prototypes, not certified products.", s:9, c:PDF_GREY, gap:4});
+  downloadBlob(buildPdf(items, "Mckenzie Genzie - Contact"), "Mckenzie-Genzie-Contact.pdf");
+  toast("Contact PDF downloaded");
+}
+
+/* ---------- Download full portfolio as PDF ---------- */
+function savePortfolio() {
+  toast("Preparing portfolio PDF...");
+  const e = emailOk(), site = pageUrl("");
+  const items = [
+    {t:"Mckenzie Genzie", s:28, b:1, c:PDF_ACC},
+    {t:"Electrical and Communications Engineering Portfolio", s:13, gap:4},
+    {t:"Papua New Guinea University of Technology, Lae", s:11, c:PDF_GREY},
+    {rule:1},
+    {t:"WhatsApp: " + CONTACT.whatsappLabel + (e ? "   |   Email: " + e : ""), s:10.5, gap:2}
+  ];
+  profileList().forEach(p => items.push({t:p.n + ": " + p.url, s:10, link:p.url, gap:3}));
+  if (/^https?:/i.test(site)) items.push({t:"Website: " + site, s:10, link:site, gap:3});
+  items.push({t:"ABOUT", s:10, b:1, c:PDF_ACC, gap:16}, {t:ABOUT_TEXT, gap:4});
+  items.push({t:"TECHNICAL INTERESTS", s:10, b:1, c:PDF_ACC, gap:16});
+  GROUPS.forEach(g => items.push({t:g.n + ": " + g.i.join(", "), gap:4}));
+
+  const projItems = (p, n) => {
+    const out = [
+      {t:pad(n) + ". " + p.t, s:13, b:1, gap:16},
+      {t:p.c + " - " + p.s, s:9.5, c:PDF_GREY},
+      {t:p.d, gap:4}
+    ];
+    if (p.why) out.push({t:"Why it matters: " + p.why, gap:3});
+    if (p.hw && p.hw.length) out.push({t:"Hardware: " + p.hw.join(", "), gap:3});
+    if (p.sw && p.sw.length) out.push({t:"Software and technologies: " + p.sw.join(", "), gap:3});
+    if (p.f && p.f.length) {
+      out.push({t:(p.fh || "Demonstrated features") + ":", b:1, gap:3});
+      p.f.forEach(f => out.push({t:"- " + f, x:10, gap:1}));
+    }
+    out.push({t:"Limitations: " + p.l, c:PDF_GREY, gap:4});
+    KEYS.forEach(k => { if (p[k]) out.push({t:PLATFORMS[k].n + ": " + p[k], s:9.5, link:p[k], gap:2}); });
+    if (p.news) out.push({t:"News feature: " + p.news, s:9.5, link:p.news, gap:2});
+    return out;
+  };
+  items.push({rule:1}, {t:"TOP 3 PROJECTS", s:12, b:1, c:PDF_ACC, gap:4});
+  PROJECTS.forEach((p, i) => { if (p.top) items.push(...projItems(p, i + 1)); });
+  items.push({rule:1}, {t:"MORE PROJECTS", s:12, b:1, c:PDF_ACC, gap:4});
+  PROJECTS.forEach((p, i) => { if (!p.top) items.push(...projItems(p, i + 1)); });
+  items.push({rule:1}, {t:"Student engineering portfolio. Projects are educational prototypes, not certified products.", s:9, c:PDF_GREY, gap:4});
+  downloadBlob(buildPdf(items, "Mckenzie Genzie - Engineering Portfolio"), "Mckenzie-Genzie-Portfolio.pdf");
+  toast("Portfolio PDF downloaded");
 }
 
 /* ---------- live Lae clock ---------- */
@@ -374,6 +520,8 @@ function initContact() {
   $("#copyLink").addEventListener("click", () => copyText(pageUrl(""), "Site link copied"));
   $("#vcfBtn").addEventListener("click", saveContact);
   $("#vcfBtn2").addEventListener("click", saveContact);
+  $("#pdfBtn").addEventListener("click", savePortfolio);
+  $("#pdfBtn2").addEventListener("click", savePortfolio);
   const e = emailOk(), cp = $("#copyEmail");
   if (e) { cp.hidden = false; cp.addEventListener("click", () => copyText(e, "Email copied")); }
 
@@ -515,19 +663,20 @@ function initStats() {
 
 function initTilt() {
   if (!fine || reduce) return;
-  const grid = $("#grid");
-  grid.addEventListener("pointermove", e => {
-    const c = e.target.closest(".card");
-    if (!c) return;
-    const r = c.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    c.style.setProperty("--mx", (x * 100) + "%");
-    c.style.setProperty("--my", (y * 100) + "%");
-    c.style.transform = `perspective(900px) rotateX(${((.5 - y) * 6).toFixed(2)}deg) rotateY(${((x - .5) * 8).toFixed(2)}deg) translateY(-5px)`;
-  });
-  grid.addEventListener("pointerout", e => {
-    const c = e.target.closest(".card");
-    if (c && !c.contains(e.relatedTarget)) c.style.transform = "";
+  [$("#topGrid"), $("#grid")].forEach(grid => {
+    grid.addEventListener("pointermove", e => {
+      const c = e.target.closest(".card");
+      if (!c) return;
+      const r = c.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.style.setProperty("--mx", (x * 100) + "%");
+      c.style.setProperty("--my", (y * 100) + "%");
+      c.style.transform = `perspective(900px) rotateX(${((.5 - y) * 6).toFixed(2)}deg) rotateY(${((x - .5) * 8).toFixed(2)}deg) translateY(-5px)`;
+    });
+    grid.addEventListener("pointerout", e => {
+      const c = e.target.closest(".card");
+      if (c && !c.contains(e.relatedTarget)) c.style.transform = "";
+    });
   });
   const wrap = $("#portraitWrap"), img = $("#portrait");
   wrap.addEventListener("pointermove", e => {
@@ -626,21 +775,12 @@ function initSkills() {
   $("#track").innerHTML = words + words;
 }
 
-function initProjects() {
-  const cats = ["All", "Has video", ...new Set(PROJECTS.map(p => p.c))];
-  const fb = $("#filters"), grid = $("#grid"), search = $("#search"), empty = $("#empty"), count = $("#pCount");
-  let current = "All", q = "";
-  const match = p => current === "All" ? true : current === "Has video" ? KEYS.some(k => p[k]) : p.c === current;
-  const drawFilters = () => { fb.innerHTML = cats.map(c => `<button class="btn sm" aria-pressed="${c === current}" data-c="${esc(c)}">${esc(c)}</button>`).join(""); };
-  const drawGrid = () => {
-    const items = PROJECTS.filter(p => match(p) && (!q || [p.t, p.d, p.c, p.hw.join(" "), p.sw.join(" ")].join(" ").toLowerCase().includes(q)));
-    empty.hidden = items.length > 0;
-    count.textContent = items.length + " / " + PROJECTS.length;
-    grid.innerHTML = items.map((p, i) => `
-      <button class="card${p.feat ? " feat" : ""}" style="animation-delay:${Math.min(i, 8) * 50}ms" data-id="${p.id}" aria-label="Open ${esc(p.t)}">
+function cardHtml(p, i) {
+  return `
+      <button class="card${p.top ? " top" : ""}" style="animation-delay:${Math.min(i, 8) * 50}ms" data-id="${p.id}" aria-label="Open ${esc(p.t)}">
         <span class="idx">${pad(PROJECTS.indexOf(p) + 1)}</span>
         ${photo(cands(p.pic), p.t)}
-        <span class="badges" style="margin:0;padding:0"><span class="tag">${esc(p.c)}</span>${p.feat ? '<span class="tag feat">Featured</span>' : ""}</span>
+        <span class="badges" style="margin:0;padding:0"><span class="tag">${esc(p.c)}</span>${p.top ? '<span class="tag feat">Top project</span>' : ""}</span>
         <h3>${esc(p.t)}</h3>
         <span class="muted">${esc(p.d)}</span>
         <span class="badges">
@@ -649,11 +789,26 @@ function initProjects() {
           ${p.facebook ? '<span class="tag fb">Facebook</span>' : ""}
           <span class="tag">Case study →</span>
         </span>
-      </button>`).join("");
+      </button>`;
+}
+
+function initProjects() {
+  const others = PROJECTS.filter(p => !p.top);
+  const cats = ["All", "Has video", ...new Set(others.map(p => p.c))];
+  const fb = $("#filters"), grid = $("#grid"), topGrid = $("#topGrid"), search = $("#search"), empty = $("#empty"), count = $("#pCount");
+  let current = "All", q = "";
+  const match = p => current === "All" ? true : current === "Has video" ? KEYS.some(k => p[k]) : p.c === current;
+  const drawFilters = () => { fb.innerHTML = cats.map(c => `<button class="btn sm" aria-pressed="${c === current}" data-c="${esc(c)}">${esc(c)}</button>`).join(""); };
+  topGrid.innerHTML = PROJECTS.filter(p => p.top).map(cardHtml).join("");
+  const drawGrid = () => {
+    const items = others.filter(p => match(p) && (!q || [p.t, p.d, p.c, p.hw.join(" "), p.sw.join(" ")].join(" ").toLowerCase().includes(q)));
+    empty.hidden = items.length > 0;
+    count.textContent = items.length + " / " + others.length;
+    grid.innerHTML = items.map(cardHtml).join("");
   };
   fb.addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (b) { current = b.dataset.c; drawFilters(); drawGrid(); } });
   search.addEventListener("input", () => { q = search.value.trim().toLowerCase(); drawGrid(); });
-  grid.addEventListener("click", e => { const b = e.target.closest(".card"); if (b) openProject(b.dataset.id, b); });
+  [topGrid, grid].forEach(g => g.addEventListener("click", e => { const b = e.target.closest(".card"); if (b) openProject(b.dataset.id, b); }));
   addEventListener("keydown", e => {
     const typing = ["INPUT", "TEXTAREA"].includes(document.activeElement.tagName);
     if (e.key === "/" && !typing && !$("#dlg").open && !$("#pal").open) {
@@ -701,7 +856,7 @@ function renderProject(i) {
     ${p.why ? `<h3>Why it matters</h3><p>${esc(p.why)}</p>` : ""}
     <h3>Hardware</h3>${chips(p.hw)}
     <h3>Software and technologies</h3>${chips(p.sw)}
-    <h3>Demonstrated features</h3>${list(p.f)}
+    <h3>${esc(p.fh || "Demonstrated features")}</h3>${list(p.f)}
     <h3>Limitations and honest notes</h3><div class="note-box"><p>${esc(p.l)}</p></div>
     <h3>Motivation, testing, lessons learned, future improvements</h3><p class="muted">To be added from real test records.</p>`;
   setView(0);
@@ -785,7 +940,8 @@ function initPalette() {
     {n:"Chat on WhatsApp", k:"Contact", run:() => window.open(waLink("Hi Mckenzie, I found your engineering portfolio."), "_blank", "noopener,noreferrer")},
     ...(mail ? [{n:"Email me", k:"Contact", run:() => { location.href = "mailto:" + mail; }}, {n:"Copy email address", k:"Contact", run:() => copyText(mail, "Email copied")}] : []),
     {n:"Copy WhatsApp number", k:"Contact", run:() => copyText("+" + CONTACT.whatsapp, "Number copied")},
-    {n:"Save contact card (.vcf)", k:"Contact", run:saveContact},
+    {n:"Save contact card (PDF)", k:"Contact", run:saveContact},
+    {n:"Download portfolio (PDF)", k:"Contact", run:savePortfolio},
     {n:"Toggle light / dark theme", k:"Action", run:() => setTheme(root.dataset.theme === "light" ? "dark" : "light")},
     {n:"Next accent colour", k:"Action", run:() => { const ks = Object.keys(ACCENTS); setAccent(ks[(ks.indexOf(accentKey) + 1) % ks.length]); }},
     {n:"Toggle particle effects", k:"Action", run:() => { if (fxApi) fxApi.toggle(); else toast("Effects disabled by your system"); }},
