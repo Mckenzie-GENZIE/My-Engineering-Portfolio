@@ -134,7 +134,7 @@ const PROJECTS = [
    l:"A student prototype. The 240V bulb is mains voltage and needs proper insulation and an enclosed, isolated relay. Not a certified product."},
 
   {id:"fileserver",...PIC("kenzii-file-server"),t:"KENZII FILE SERVER: Standalone Wireless File Sharing System",c:"Embedded",s:"Working prototype",
-   tiktok:"https://vt.tiktok.com/ZSs6fjg9j/",linkedin:"https://lnkd.in/p/geSvab3x",
+   tiktok:"",linkedin:"",
    d:"An ESP32-CAM that acts as a standalone wireless server. It creates its own Wi-Fi network so a laptop and a smartphone can share files directly, with no internet, external router or cloud storage.",
    why:"Makes file sharing simple, portable and independent of internet connectivity, external routers and cloud storage.",
    hw:["ESP32-CAM","Internal flash memory","Laptop and smartphone clients"],
@@ -142,7 +142,7 @@ const PROJECTS = [
    f:["Upload files from a laptop using drag and drop","Store files directly in the ESP32 internal flash memory using LittleFS","Access and download stored files from a smartphone","Monitor connected devices and network information","View file transfer statistics and server status"],
    l:"A student prototype. Storage is limited to the ESP32 internal flash memory. No transfer speed, storage capacity or security figures are claimed, and it is not a replacement for a secured file server."},
   {id:"woofer",...PIC("woofer-repair"),t:"From Dust to Sound: Old Woofer Repair",c:"Electrical",s:"Hands-on repair experiment",
-   tiktok:"https://vt.tiktok.com/ZSs6yRMo5/",linkedin:"https://lnkd.in/p/gsu-mgjY",
+   tiktok:"",linkedin:"",
    d:"A dusty old woofer brought back to life. Two small speakers had missing connection plugs, so the connections were bypassed by soldering directly on the motherboard.",
    why:"Simple hands-on practice in electronics troubleshooting, soldering and practical problem-solving. Sometimes engineering starts with curiosity and a little boredom.",
    hw:["Old woofer system","Two small speakers","Motherboard","Soldering equipment"],
@@ -151,7 +151,7 @@ const PROJECTS = [
    fh:"What was done",
    l:"A simple repair experiment on an old consumer device. No audio quality, power output or long-term reliability figures are claimed. The soldered bypass is a workaround and not a manufacturer repair."},
   {id:"connect",...PIC("kenzii-connect"),t:"KENZII CONNECT: ESP32-CAM Live Video and Chat System",c:"IoT",s:"Working prototype. Remote test completed.",
-   tiktok:"",linkedin:"https://lnkd.in/p/gJC-_ZEy",
+   tiktok:"",linkedin:"",
    d:"An ESP32-CAM-based system that combines live video streaming and real-time chat through a web interface. The ESP32-CAM hosts its own web server and Cloudflare Tunnel provides remote access over the internet.",
    why:"Shows that innovation does not need expensive equipment. A small, affordable device can be pushed to do real-time video and communication work.",
    hw:["ESP32-CAM"],
@@ -161,7 +161,7 @@ const PROJECTS = [
    l:"A student prototype. No video quality, frame rate, delay, number of users or reliability figures are claimed. Cloudflare Tunnel provides connectivity and does not by itself give end-to-end encryption, anonymity or security. The system is not audited or claimed to be secure."},
 
   {id:"inverter",...PIC("smart-inverter"),t:"Smart Wi-Fi Inverter Control System (ESP32-CAM)",c:"IoT",s:"Working prototype. Still experimenting.",
-   tiktok:"https://vt.tiktok.com/ZSs6UCVnV/",linkedin:"https://lnkd.in/p/g7CaCNYa",
+   tiktok:"",linkedin:"",
    d:"An ESP32-CAM system that lets a phone connect directly to its own Wi-Fi network and control an inverter and home lighting through a web dashboard. It started with the experiment of connecting a 230V bulb straight to a 12V battery, which does not work.",
    why:"No external Wi-Fi router and no internet required. It turns a failed experiment into a practical step towards embedded systems, electrical control and home automation.",
    hw:["ESP32-CAM","12V battery","Inverter","Home lighting","Fan and phone charger as inverter loads"],
@@ -376,16 +376,17 @@ function getPortraitJpeg() {
 }
 
 function buildPdf(items, footer, photoData) {
-  const W = 595, H = 842, M = 50, TW = W - 2 * M;
+  const W = 595, H = 842, M = 64, TW = W - 2 * M;
   const clean = s => String(s == null ? "" : s)
     .replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"')
     .replace(/[\u2013\u2014]/g, "-").replace(/\u2192/g, "->").replace(/[\u00b7\u2022]/g, "-")
     .replace(/[^\x20-\x7e]/g, "");
   const pesc = s => s.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
   const pages = [{ops:[], links:[]}];
-  let y = H - M;
+  let y = H - M - 6, fl = null;
+  const imgs = [];
   const pg = () => pages[pages.length - 1];
-  const ensure = h => { if (y - h < M + 14) { pages.push({ops:[], links:[]}); y = H - M; } };
+  const ensure = h => { if (y - h < M + 14) { pages.push({ops:[], links:[]}); y = H - M - 6; fl = null; } };
   const wrap = (t, max) => {
     const out = []; let line = "";
     t.split(/\s+/).forEach(w => {
@@ -400,9 +401,10 @@ function buildPdf(items, footer, photoData) {
   items.forEach(it => {
     if (!it) return;
     if (it.sp) { y -= it.sp; return; }
-    if (it.rule) { ensure(16); y -= 8; pg().ops.push(`0.8 0.82 0.85 rg ${M} ${y.toFixed(1)} ${TW} 0.8 re f`); y -= 8; return; }
-    const size = it.s || 10.5, lh = size * 1.45, cw = size * (it.b ? 0.58 : 0.54), x = M + (it.x || 0);
-    const max = Math.max(10, Math.floor((TW - (it.x || 0) - (it.r || 0)) / cw));
+    if (it.pic) { if (fl !== null && y > fl) y = fl; ensure(92); y -= (it.gap || 0); const bx = W - M - 88; imgs.push(it.pic); const k = (photoData ? 1 : 0) + imgs.length; pg().ops.push(`q 0.04 0.5 0.65 RG 1.2 w ${bx - 1} ${(y - 67).toFixed(1)} 90 68 re S Q`, `q 88 0 0 66 ${bx} ${(y - 66).toFixed(1)} cm /Im${k} Do Q`); fl = y - 74; return; }
+    if (it.rule) { if (fl !== null && y > fl) y = fl; fl = null; ensure(16); y -= 8; pg().ops.push(`0.8 0.82 0.85 rg ${M} ${y.toFixed(1)} ${TW} 0.8 re f`); y -= 8; return; }
+    const size = it.s || 10.5, lh = size * 1.45, cw = size * (it.b ? 0.58 : 0.5), x = M + (it.x || 0);
+    const max = Math.max(10, Math.floor((TW - (it.x || 0) - (it.r || 0) - (fl !== null && y > fl ? 100 : 0)) / cw));
     const col = (it.link ? PDF_BLUE : (it.c || PDF_DARK)).join(" ");
     y -= it.gap || 0;
     wrap(clean(it.t), max).forEach(l => {
@@ -429,12 +431,14 @@ function buildPdf(items, footer, photoData) {
   }
 
   const objs = [null, null,
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Times-Roman /Encoding /WinAnsiEncoding >>",
     "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"];
-  if (photoData) objs.push({img:photoData});
-  const xo = photoData ? " /XObject << /Im1 5 0 R >>" : "";
+  const allImgs = (photoData ? [photoData] : []).concat(imgs);
+  allImgs.forEach(im => objs.push({img:im}));
+  const xo = allImgs.length ? " /XObject << " + allImgs.map((_, k) => `/Im${k + 1} ${5 + k} 0 R`).join(" ") + " >>" : "";
   const pageNums = [];
   pages.forEach((p, i) => {
+    p.ops.push(`0.04 0.5 0.65 rg 0 ${H - 9} ${W} 9 re f`, `0.04 0.5 0.65 rg ${M} 40 ${TW} 0.8 re f`);
     p.ops.push(`BT /F1 8 Tf 0.5 0.55 0.6 rg ${M} 28 Td (${pesc(clean(footer))} - Page ${i + 1} of ${pages.length}) Tj ET`);
     const stream = p.ops.join("\n");
     objs.push(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
@@ -501,8 +505,34 @@ function saveContact() {
 }
 
 /* ---------- Download full portfolio as PDF ---------- */
-function savePortfolio() {
+const loadJpeg = srcs => new Promise(res => {
+  let i = 0;
+  const next = () => {
+    if (i >= srcs.length) return res(null);
+    const im = new Image();
+    im.onload = () => {
+      try {
+        const c = document.createElement("canvas");
+        c.width = 320; c.height = 240;
+        const g = c.getContext("2d");
+        g.fillStyle = "#fff"; g.fillRect(0, 0, 320, 240);
+        const k = Math.max(320 / im.naturalWidth, 240 / im.naturalHeight), w = im.naturalWidth * k, h = im.naturalHeight * k;
+        g.drawImage(im, (320 - w) / 2, (240 - h) / 2, w, h);
+        const bin = atob(c.toDataURL("image/jpeg", 0.82).split(",")[1]);
+        const bytes = new Uint8Array(bin.length);
+        for (let j = 0; j < bin.length; j++) bytes[j] = bin.charCodeAt(j);
+        res({bytes, w:320, h:240});
+      } catch (e) { res(null); }
+    };
+    im.onerror = next;
+    im.src = srcs[i++];
+  };
+  next();
+});
+
+async function savePortfolio() {
   toast("Preparing portfolio PDF...");
+  const pics = await Promise.all(PROJECTS.map(p => loadJpeg(cands(p.pic))));
   const e = emailOk(), site = pageUrl("");
   const items = [
     {t:"Mckenzie Genzie", s:28, b:1, c:PDF_ACC, r:100},
@@ -519,8 +549,10 @@ function savePortfolio() {
   GROUPS.forEach(g => items.push({t:g.n + ": " + g.i.join(", "), gap:4}));
 
   const projItems = (p, n) => {
+    const im = pics[n - 1];
     const out = [
-      {t:pad(n) + ". " + p.t, s:13, b:1, gap:16},
+      ...(im ? [{pic:im, gap:16}] : []),
+      {t:pad(n) + ". " + p.t, s:13, b:1, gap:im ? 0 : 16},
       {t:p.c + " - " + p.s, s:9.5, c:PDF_GREY},
       {t:p.d, gap:4}
     ];
